@@ -1,0 +1,68 @@
+<network>
+	<colors>
+		<color attribute="atom" value="c" rgba="128 128 128 255"/>
+		<color attribute="atom" value="n" rgba="0 0 255 255"/>
+		<color attribute="atom" value="h" rgba="255 255 255 255"/>
+		<color attribute="atom" value="o" rgba="255 0 0 255"/>
+	</colors>
+	<nodes>
+		<node id="0" label="c" atom="c"/>
+		<node id="1" label="c" atom="c"/>
+		<node id="2" label="c" atom="c"/>
+		<node id="3" label="c" atom="c"/>
+		<node id="4" label="c" atom="c"/>
+		<node id="5" label="c" atom="c"/>
+		<node id="6" label="c" atom="c"/>
+		<node id="7" label="c" atom="c"/>												
+		<node id="8" label="n" atom="n"/>
+		<node id="9" label="n" atom="n"/>
+		<node id="10" label="n" atom="n"/>
+		<node id="11" label="n" atom="n"/>
+		<node id="12" label="o" atom="o"/>
+		<node id="13" label="o" atom="o"/>
+		<node id="14" label="h" atom="h"/>
+		<node id="15" label="h" atom="h"/>
+		<node id="16" label="h" atom="h"/>		
+		<node id="17" label="h" atom="h"/>
+		<node id="18" label="h" atom="h"/>
+		<node id="19" label="h" atom="h"/>
+		<node id="20" label="h" atom="h"/>
+		<node id="21" label="h" atom="h"/>
+		<node id="22" label="h" atom="h"/>		
+		<node id="23" label="h" atom="h"/>		
+	</nodes>
+	<edges>
+		<edge directed="false" from="0" to="8"/>
+		<edge directed="false" from="0" to="14"/>
+		<edge directed="false" from="0" to="15"/>
+		<edge directed="false" from="0" to="16"/>
+		
+		<edge directed="false" from="1" to="2"/>
+		<edge directed="false" from="1" to="8"/>		
+		<edge directed="false" from="1" to="12"/>
+		
+		<edge directed="false" from="2" to="3"/>
+		<edge directed="false" from="2" to="9"/>		
+			
+		<edge directed="false" from="3" to="10"/>
+		<edge directed="false" from="3" to="11"/>			
+		
+		<edge directed="false" from="4" to="9"/>
+		<edge directed="false" from="4" to="17"/>
+		<edge directed="false" from="4" to="18"/>
+		<edge directed="false" from="4" to="19"/>
+	
+		<edge directed="false" from="5" to="9"/>
+		<edge directed="false" from="5" to="11"/>			
+		<edge directed="false" from="5" to="20"/>
+
+		<edge directed="false" from="6" to="8"/>	
+		<edge directed="false" from="6" to="10"/>
+		<edge directed="false" from="6" to="13"/>
+		
+		<edge directed="false" from="7" to="10"/>
+		<edge directed="false" from="7" to="21"/>
+		<edge directed="false" from="7" to="22"/>
+		<edge directed="false" from="7" to="23"/>
+	</edges>
+</network>

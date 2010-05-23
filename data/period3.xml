@@ -1,0 +1,12 @@
+<network>
+	<nodes>
+		<node id="1" label="A"/>
+		<node id="2" label="B"/>
+		<node id="3" label="C"/>
+	</nodes>
+	<edges>
+		<edge from="1" to="2" label="0 | 1.0"/>
+		<edge from="2" to="3" label="1 | 1.0"/>
+		<edge from="3" to="1" label="2 | 1.0"/>
+	</edges>
+</network>

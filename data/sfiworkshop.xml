@@ -1,0 +1,186 @@
+<network>
+<nodes>
+<node id="0" label="Dave Ackley" institution="SFI/University of NM"/>
+<node id="1" label="Sharon Fisher" institution="SFI"/>
+<node id="2" label="Garrett Kenyon" institution="Los Alamos National Lab"/>
+<node id="3" label="Shannon Larsen" institution="SFI"/>
+<node id="4" label="Melanie Mitchell" institution="SFI/Portland State University"/>
+<node id="5" label="Geoffrey West" institution="SFI"/>
+<node id="6" label="Chris Wood" institution="SFI"/>
+<node id="7" label="Mark Baloga" institution="Steelcase, Inc."/>
+<node id="8" label="John Coleman" institution="The Boeing Company"/>
+<node id="9" label="Craig Rosenberg" institution="The Boeing Company"/>
+<node id="10" label="Nathan vanRheenen" institution="Boeing Phantom Works"/>
+<node id="11" label="James Crutchfield" institution="SFI/UC Davis"/>
+<node id="12" label="Raissa D'Souza" institution="SFI/UC Davis"/>
+<node id="13" label="Oliver Kreylos" institution="UC Davis"/>
+<node id="14" label="Dan Lynch" institution="Lynch Enterprises"/>
+<node id="15" label="Arturo Rodriguez" institution="Legg Mason Capital Management"/>
+<node id="16" label="John Rundle" institution="UC Davis"/>
+<node id="17" label="Ed Puckett" institution="UC Davis"/>
+<node id="18" label="Jordan Van Aalsberg" institution="UC Davis"/>
+<node id="19" label="Sean Whalen" institution="UC Davis"/>
+<node id="20" label="James Dier" institution="Thrivent Asset Management"/>
+<node id="21" label="David Spangler" institution="Trivent Asset Management"/>
+<node id="22" label="Jerry Duncan" institution="Deere and Company"/>
+<node id="23" label="Philip Moyer" institution="Deloitte"/>
+<node id="24" label="Craig Hayenga" institution="Lockheed Martin Corp."/>
+<node id="25" label="Harry Lesser Jr." institution="Lockheed Martin Corp."/>
+<node id="26" label="Luciano Oviedo" institution="Intel Corp."/>
+<node id="27" label="Virginia Ludvik" institution="The Grove Consultants"/>
+<node id="28" label="Dan McCulley" institution="Intel Corp."/>
+<node id="29" label="Dave Okuno" institution="The Boeing Company"/>
+<node id="30" label="Dan Compton" institution="Boeing Phantom Works"/>
+<node id="31" label="Yan Xu" institution="Microsoft Research"/>
+<node id="32" label="George Djorgovski" institution="California Institute of Technology"/>
+<node id="33" label="Paul Green" institution=""/>
+</nodes>
+<edges>
+<edge from="0" to="1"/>
+<edge from="0" to="2"/>
+<edge from="0" to="3"/>
+<edge from="0" to="4"/>
+<edge from="0" to="5"/>
+<edge from="0" to="6"/>
+<edge from="7" to="8"/>
+<edge from="7" to="9"/>
+<edge from="7" to="10"/>
+<edge from="11" to="0"/>
+<edge from="11" to="12"/>
+<edge from="11" to="2"/>
+<edge from="11" to="13"/>
+<edge from="11" to="3"/>
+<edge from="11" to="12"/>
+<edge from="11" to="14"/>
+<edge from="11" to="4"/>
+<edge from="11" to="15"/>
+<edge from="11" to="16"/>
+<edge from="11" to="5"/>
+<edge from="11" to="6"/>
+<edge from="11" to="17"/>
+<edge from="11" to="18"/>
+<edge from="11" to="19"/>
+<edge from="12" to="11"/>
+<edge from="12" to="13"/>
+<edge from="12" to="3"/>
+<edge from="12" to="14"/>
+<edge from="12" to="4"/>
+<edge from="12" to="16"/>
+<edge from="12" to="5"/>
+<edge from="12" to="6"/>
+<edge from="12" to="19"/>
+<edge from="12" to="16"/>
+<edge from="20" to="3"/>
+<edge from="20" to="21"/>
+<edge from="22" to="7"/>
+<edge from="22" to="8"/>
+<edge from="22" to="11"/>
+<edge from="22" to="3"/>
+<edge from="22" to="5"/>
+<edge from="1" to="3"/>
+<edge from="1" to="14"/>
+<edge from="1" to="23"/>
+<edge from="24" to="11"/>
+<edge from="24" to="3"/>
+<edge from="24" to="25"/>
+<edge from="24" to="4"/>
+<edge from="24" to="26"/>
+<edge from="24" to="5"/>
+<edge from="24" to="6"/>
+<edge from="3" to="0"/>
+<edge from="3" to="12"/>
+<edge from="3" to="20"/>
+<edge from="3" to="1"/>
+<edge from="3" to="24"/>
+<edge from="3" to="14"/>
+<edge from="3" to="4"/>
+<edge from="3" to="23"/>
+<edge from="3" to="26"/>
+<edge from="3" to="5"/>
+<edge from="3" to="6"/>
+<edge from="28" to="0"/>
+<edge from="28" to="11"/>
+<edge from="28" to="26"/>
+<edge from="23" to="1"/>
+<edge from="23" to="3"/>
+<edge from="23" to="26"/>
+<edge from="23" to="5"/>
+<edge from="23" to="6"/>
+<edge from="26" to="24"/>
+<edge from="26" to="3"/>
+<edge from="26" to="28"/>
+<edge from="26" to="5"/>
+<edge from="26" to="6"/>
+<edge from="17" to="11"/>
+<edge from="17" to="12"/>
+<edge from="17" to="18"/>
+<edge from="17" to="19"/>
+<edge from="15" to="3"/>
+<edge from="15" to="5"/>
+<edge from="9" to="7"/>
+<edge from="9" to="8"/>
+<edge from="9" to="30"/>
+<edge from="9" to="22"/>
+<edge from="9" to="3"/>
+<edge from="9" to="29"/>
+<edge from="9" to="10"/>
+<edge from="9" to="5"/>
+<edge from="16" to="11"/>
+<edge from="16" to="12"/>
+<edge from="16" to="13"/>
+<edge from="16" to="3"/>
+<edge from="16" to="4"/>
+<edge from="16" to="5"/>
+<edge from="16" to="6"/>
+<edge from="21" to="20"/>
+<edge from="18" to="11"/>
+<edge from="18" to="12"/>
+<edge from="18" to="13"/>
+<edge from="18" to="16"/>
+<edge from="18" to="17"/>
+<edge from="18" to="19"/>
+<edge from="19" to="11"/>
+<edge from="19" to="12"/>
+<edge from="19" to="13"/>
+<edge from="19" to="16"/>
+<edge from="19" to="17"/>
+<edge from="19" to="18"/>
+<edge from="6" to="0"/>
+<edge from="6" to="11"/>
+<edge from="6" to="12"/>
+<edge from="6" to="22"/>
+<edge from="6" to="24"/>
+<edge from="6" to="2"/>
+<edge from="6" to="3"/>
+<edge from="6" to="25"/>
+<edge from="6" to="14"/>
+<edge from="6" to="4"/>
+<edge from="6" to="23"/>
+<edge from="6" to="26"/>
+<edge from="6" to="16"/>
+<edge from="6" to="5"/>
+<edge from="6" to="32"/>
+<edge from="31" to="3"/>
+<edge from="31" to="6"/>
+<edge from="4" to="0"/>
+<edge from="4" to="11"/>
+<edge from="4" to="12"/>
+<edge from="4" to="2"/>
+<edge from="4" to="3"/>
+<edge from="4" to="14"/>
+<edge from="4" to="16"/>
+<edge from="4" to="5"/>
+<edge from="4" to="6"/>
+<edge from="14" to="11"/>
+<edge from="14" to="12"/>
+<edge from="14" to="1"/>
+<edge from="14" to="3"/>
+<edge from="14" to="4"/>
+<edge from="14" to="5"/>
+<edge from="14" to="6"/>
+<edge from="33" to="11"/>
+<edge from="33" to="3"/>
+<edge from="28" to="11"/>
+<edge from="27" to="11"/>
+</edges>
+</network>

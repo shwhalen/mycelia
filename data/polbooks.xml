@@ -1,0 +1,557 @@
+<network>
+	<colors>
+		<color attribute="type" value="n" rgba="255 255 255 255"/>
+		<color attribute="type" value="c" rgba="255 0 0 255"/>
+		<color attribute="type" value="l" rgba="0 0 255 255"/>
+	</colors>
+	<nodes>
+		<node id="0" label="1000 Years for Revenge" type="n"/>
+		<node id="1" label="Bush vs. the Beltway" type="c"/>
+		<node id="2" label="Charlie Wilson's War" type="c"/>
+		<node id="3" label="Losing Bin Laden" type="c"/>
+		<node id="4" label="Sleeping With the Devil" type="n"/>
+		<node id="5" label="The Man Who Warned America" type="c"/>
+		<node id="6" label="Why America Slept" type="n"/>
+		<node id="7" label="Ghost Wars" type="n"/>
+		<node id="8" label="A National Party No More" type="c"/>
+		<node id="9" label="Bush Country" type="c"/>
+		<node id="10" label="Dereliction of Duty" type="c"/>
+		<node id="11" label="Legacy" type="c"/>
+		<node id="12" label="Off with Their Heads" type="c"/>
+		<node id="13" label="Persecution" type="c"/>
+		<node id="14" label="Rumsfeld's War" type="c"/>
+		<node id="15" label="Breakdown" type="c"/>
+		<node id="16" label="Betrayal" type="c"/>
+		<node id="17" label="Shut Up and Sing" type="c"/>
+		<node id="18" label="Meant To Be" type="n"/>
+		<node id="19" label="The Right Man" type="c"/>
+		<node id="20" label="Ten Minutes from Normal" type="c"/>
+		<node id="21" label="Hillary's Scheme" type="c"/>
+		<node id="22" label="The French Betrayal of America" type="c"/>
+		<node id="23" label="Tales from the Left Coast" type="c"/>
+		<node id="24" label="Hating America" type="c"/>
+		<node id="25" label="The Third Terrorist" type="c"/>
+		<node id="26" label="Endgame" type="c"/>
+		<node id="27" label="Spin Sisters" type="c"/>
+		<node id="28" label="All the Shah's Men" type="n"/>
+		<node id="29" label="Dangerous Dimplomacy" type="c"/>
+		<node id="30" label="The Price of Loyalty" type="l"/>
+		<node id="31" label="House of Bush, House of Saud" type="l"/>
+		<node id="32" label="The Death of Right and Wrong" type="c"/>
+		<node id="33" label="Useful Idiots" type="c"/>
+		<node id="34" label="The O'Reilly Factor" type="c"/>
+		<node id="35" label="Let Freedom Ring" type="c"/>
+		<node id="36" label="Those Who Trespass" type="c"/>
+		<node id="37" label="Bias" type="c"/>
+		<node id="38" label="Slander" type="c"/>
+		<node id="39" label="The Savage Nation" type="c"/>
+		<node id="40" label="Deliver Us from Evil" type="c"/>
+		<node id="41" label="Give Me a Break" type="c"/>
+		<node id="42" label="The Enemy Within" type="c"/>
+		<node id="43" label="The Real America" type="c"/>
+		<node id="44" label="Who's Looking Out for You?" type="c"/>
+		<node id="45" label="The Official Handbook Vast Right Wing Conspiracy" type="c"/>
+		<node id="46" label="Power Plays" type="n"/>
+		<node id="47" label="Arrogance" type="c"/>
+		<node id="48" label="The Perfect Wife" type="n"/>
+		<node id="49" label="The Bushes" type="c"/>
+		<node id="50" label="Things Worth Fighting For" type="c"/>
+		<node id="51" label="Surprise, Security, the American Experience" type="n"/>
+		<node id="52" label="Allies" type="c"/>
+		<node id="53" label="Why Courage Matters" type="c"/>
+		<node id="54" label="Hollywood Interrupted" type="c"/>
+		<node id="55" label="Fighting Back" type="c"/>
+		<node id="56" label="We Will Prevail" type="c"/>
+		<node id="57" label="The Faith of George W Bush" type="c"/>
+		<node id="58" label="Rise of the Vulcans" type="c"/>
+		<node id="59" label="Downsize This!" type="l"/>
+		<node id="60" label="Stupid White Men" type="l"/>
+		<node id="61" label="Rush Limbaugh Is a Big Fat Idiot" type="l"/>
+		<node id="62" label="The Best Democracy Money Can Buy" type="l"/>
+		<node id="63" label="The Culture of Fear" type="l"/>
+		<node id="64" label="America Unbound" type="l"/>
+		<node id="65" label="The Choice" type="l"/>
+		<node id="66" label="The Great Unraveling" type="l"/>
+		<node id="67" label="Rogue Nation" type="l"/>
+		<node id="68" label="Soft Power" type="l"/>
+		<node id="69" label="Colossus" type="n"/>
+		<node id="70" label="The Sorrows of Empire" type="l"/>
+		<node id="71" label="Against All Enemies" type="l"/>
+		<node id="72" label="American Dynasty" type="l"/>
+		<node id="73" label="Big Lies" type="l"/>
+		<node id="74" label="The Lies of George W. Bush" type="l"/>
+		<node id="75" label="Worse Than Watergate" type="l"/>
+		<node id="76" label="Plan of Attack" type="n"/>
+		<node id="77" label="Bush at War" type="c"/>
+		<node id="78" label="The New Pearl Harbor" type="l"/>
+		<node id="79" label="Bushwomen" type="l"/>
+		<node id="80" label="The Bubble of American Supremacy" type="l"/>
+		<node id="81" label="Living History" type="l"/>
+		<node id="82" label="The Politics of Truth" type="l"/>
+		<node id="83" label="Fanatics and Fools" type="l"/>
+		<node id="84" label="Bushwhacked" type="l"/>
+		<node id="85" label="Disarming Iraq" type="l"/>
+		<node id="86" label="Lies and the Lying Liars Who Tell Them" type="l"/>
+		<node id="87" label="MoveOn's 50 Ways to Love Your Country" type="l"/>
+		<node id="88" label="The Buying of the President 2004" type="l"/>
+		<node id="89" label="Perfectly Legal" type="l"/>
+		<node id="90" label="Hegemony or Survival" type="l"/>
+		<node id="91" label="The Exception to the Rulers" type="l"/>
+		<node id="92" label="Freethinkers" type="l"/>
+		<node id="93" label="Had Enough?" type="l"/>
+		<node id="94" label="It's Still the Economy, Stupid!" type="l"/>
+		<node id="95" label="We're Right They're Wrong" type="l"/>
+		<node id="96" label="What Liberal Media?" type="l"/>
+		<node id="97" label="The Clinton Wars" type="l"/>
+		<node id="98" label="Weapons of Mass Deception" type="l"/>
+		<node id="99" label="Dude, Where's My Country?" type="l"/>
+		<node id="100" label="Thieves in High Places" type="l"/>
+		<node id="101" label="Shrub" type="l"/>
+		<node id="102" label="Buck Up Suck Up" type="l"/>
+		<node id="103" label="The Future of Freedom" type="n"/>
+		<node id="104" label="Empire" type="n"/>
+	</nodes>
+	<edges>
+		<edge from="1" to="0"/>
+		<edge from="2" to="0"/>
+		<edge from="3" to="0"/>
+		<edge from="3" to="1"/>
+		<edge from="4" to="0"/>
+		<edge from="4" to="2"/>
+		<edge from="5" to="0"/>
+		<edge from="5" to="1"/>
+		<edge from="5" to="2"/>
+		<edge from="5" to="3"/>
+		<edge from="5" to="4"/>
+		<edge from="6" to="0"/>
+		<edge from="6" to="1"/>
+		<edge from="6" to="4"/>
+		<edge from="6" to="5"/>
+		<edge from="7" to="2"/>
+		<edge from="7" to="5"/>
+		<edge from="7" to="6"/>
+		<edge from="8" to="3"/>
+		<edge from="9" to="3"/>
+		<edge from="9" to="8"/>
+		<edge from="10" to="3"/>
+		<edge from="10" to="6"/>
+		<edge from="10" to="8"/>
+		<edge from="11" to="3"/>
+		<edge from="11" to="8"/>
+		<edge from="11" to="9"/>
+		<edge from="11" to="10"/>
+		<edge from="12" to="3"/>
+		<edge from="12" to="6"/>
+		<edge from="12" to="8"/>
+		<edge from="12" to="9"/>
+		<edge from="12" to="10"/>
+		<edge from="12" to="11"/>
+		<edge from="13" to="3"/>
+		<edge from="13" to="8"/>
+		<edge from="13" to="11"/>
+		<edge from="13" to="12"/>
+		<edge from="14" to="3"/>
+		<edge from="14" to="8"/>
+		<edge from="14" to="9"/>
+		<edge from="14" to="11"/>
+		<edge from="14" to="12"/>
+		<edge from="14" to="7"/>
+		<edge from="15" to="3"/>
+		<edge from="15" to="10"/>
+		<edge from="15" to="12"/>
+		<edge from="16" to="3"/>
+		<edge from="16" to="10"/>
+		<edge from="16" to="15"/>
+		<edge from="17" to="3"/>
+		<edge from="17" to="11"/>
+		<edge from="17" to="12"/>
+		<edge from="17" to="13"/>
+		<edge from="18" to="3"/>
+		<edge from="18" to="6"/>
+		<edge from="18" to="12"/>
+		<edge from="19" to="3"/>
+		<edge from="19" to="10"/>
+		<edge from="20" to="3"/>
+		<edge from="20" to="8"/>
+		<edge from="20" to="9"/>
+		<edge from="20" to="11"/>
+		<edge from="21" to="3"/>
+		<edge from="21" to="8"/>
+		<edge from="21" to="10"/>
+		<edge from="21" to="11"/>
+		<edge from="22" to="3"/>
+		<edge from="22" to="6"/>
+		<edge from="22" to="8"/>
+		<edge from="22" to="11"/>
+		<edge from="23" to="3"/>
+		<edge from="23" to="8"/>
+		<edge from="23" to="12"/>
+		<edge from="23" to="21"/>
+		<edge from="24" to="3"/>
+		<edge from="24" to="8"/>
+		<edge from="24" to="9"/>
+		<edge from="24" to="12"/>
+		<edge from="24" to="20"/>
+		<edge from="25" to="3"/>
+		<edge from="25" to="6"/>
+		<edge from="25" to="14"/>
+		<edge from="25" to="22"/>
+		<edge from="26" to="3"/>
+		<edge from="26" to="8"/>
+		<edge from="26" to="11"/>
+		<edge from="26" to="14"/>
+		<edge from="26" to="24"/>
+		<edge from="27" to="3"/>
+		<edge from="27" to="8"/>
+		<edge from="27" to="9"/>
+		<edge from="27" to="11"/>
+		<edge from="27" to="23"/>
+		<edge from="28" to="4"/>
+		<edge from="29" to="4"/>
+		<edge from="29" to="6"/>
+		<edge from="29" to="11"/>
+		<edge from="29" to="13"/>
+		<edge from="30" to="4"/>
+		<edge from="30" to="7"/>
+		<edge from="31" to="4"/>
+		<edge from="31" to="30"/>
+		<edge from="32" to="8"/>
+		<edge from="32" to="12"/>
+		<edge from="32" to="13"/>
+		<edge from="32" to="23"/>
+		<edge from="33" to="32"/>
+		<edge from="33" to="8"/>
+		<edge from="33" to="10"/>
+		<edge from="33" to="12"/>
+		<edge from="33" to="23"/>
+		<edge from="35" to="34"/>
+		<edge from="35" to="8"/>
+		<edge from="35" to="10"/>
+		<edge from="36" to="34"/>
+		<edge from="36" to="35"/>
+		<edge from="36" to="12"/>
+		<edge from="37" to="34"/>
+		<edge from="37" to="8"/>
+		<edge from="37" to="10"/>
+		<edge from="37" to="35"/>
+		<edge from="37" to="33"/>
+		<edge from="38" to="34"/>
+		<edge from="38" to="10"/>
+		<edge from="38" to="35"/>
+		<edge from="38" to="12"/>
+		<edge from="38" to="37"/>
+		<edge from="38" to="33"/>
+		<edge from="39" to="34"/>
+		<edge from="39" to="10"/>
+		<edge from="39" to="35"/>
+		<edge from="39" to="12"/>
+		<edge from="39" to="38"/>
+		<edge from="39" to="33"/>
+		<edge from="40" to="8"/>
+		<edge from="40" to="35"/>
+		<edge from="40" to="12"/>
+		<edge from="40" to="13"/>
+		<edge from="40" to="20"/>
+		<edge from="40" to="22"/>
+		<edge from="40" to="39"/>
+		<edge from="40" to="24"/>
+		<edge from="40" to="25"/>
+		<edge from="40" to="26"/>
+		<edge from="40" to="27"/>
+		<edge from="41" to="8"/>
+		<edge from="41" to="9"/>
+		<edge from="41" to="40"/>
+		<edge from="41" to="12"/>
+		<edge from="41" to="36"/>
+		<edge from="41" to="27"/>
+		<edge from="42" to="8"/>
+		<edge from="42" to="40"/>
+		<edge from="42" to="13"/>
+		<edge from="42" to="39"/>
+		<edge from="43" to="8"/>
+		<edge from="43" to="35"/>
+		<edge from="43" to="13"/>
+		<edge from="43" to="42"/>
+		<edge from="44" to="8"/>
+		<edge from="44" to="40"/>
+		<edge from="44" to="35"/>
+		<edge from="44" to="12"/>
+		<edge from="44" to="13"/>
+		<edge from="45" to="8"/>
+		<edge from="45" to="9"/>
+		<edge from="45" to="40"/>
+		<edge from="45" to="11"/>
+		<edge from="45" to="26"/>
+		<edge from="46" to="8"/>
+		<edge from="46" to="12"/>
+		<edge from="47" to="9"/>
+		<edge from="47" to="40"/>
+		<edge from="47" to="41"/>
+		<edge from="47" to="11"/>
+		<edge from="47" to="12"/>
+		<edge from="47" to="13"/>
+		<edge from="47" to="42"/>
+		<edge from="47" to="36"/>
+		<edge from="47" to="37"/>
+		<edge from="47" to="17"/>
+		<edge from="47" to="33"/>
+		<edge from="47" to="45"/>
+		<edge from="47" to="46"/>
+		<edge from="47" to="23"/>
+		<edge from="47" to="24"/>
+		<edge from="47" to="26"/>
+		<edge from="47" to="27"/>
+		<edge from="48" to="9"/>
+		<edge from="48" to="20"/>
+		<edge from="49" to="9"/>
+		<edge from="49" to="20"/>
+		<edge from="49" to="31"/>
+		<edge from="49" to="48"/>
+		<edge from="50" to="9"/>
+		<edge from="50" to="11"/>
+		<edge from="51" to="9"/>
+		<edge from="52" to="9"/>
+		<edge from="52" to="22"/>
+		<edge from="52" to="51"/>
+		<edge from="53" to="40"/>
+		<edge from="53" to="20"/>
+		<edge from="53" to="24"/>
+		<edge from="53" to="26"/>
+		<edge from="54" to="40"/>
+		<edge from="54" to="41"/>
+		<edge from="54" to="12"/>
+		<edge from="54" to="47"/>
+		<edge from="54" to="23"/>
+		<edge from="54" to="27"/>
+		<edge from="55" to="10"/>
+		<edge from="55" to="12"/>
+		<edge from="55" to="15"/>
+		<edge from="55" to="19"/>
+		<edge from="56" to="11"/>
+		<edge from="56" to="19"/>
+		<edge from="56" to="43"/>
+		<edge from="57" to="13"/>
+		<edge from="57" to="56"/>
+		<edge from="57" to="20"/>
+		<edge from="57" to="48"/>
+		<edge from="57" to="49"/>
+		<edge from="58" to="14"/>
+		<edge from="58" to="7"/>
+		<edge from="58" to="30"/>
+		<edge from="58" to="49"/>
+		<edge from="58" to="50"/>
+		<edge from="58" to="51"/>
+		<edge from="58" to="52"/>
+		<edge from="60" to="59"/>
+		<edge from="61" to="59"/>
+		<edge from="62" to="59"/>
+		<edge from="62" to="60"/>
+		<edge from="63" to="59"/>
+		<edge from="63" to="60"/>
+		<edge from="63" to="62"/>
+		<edge from="64" to="58"/>
+		<edge from="64" to="51"/>
+		<edge from="64" to="52"/>
+		<edge from="65" to="64"/>
+		<edge from="65" to="58"/>
+		<edge from="65" to="51"/>
+		<edge from="66" to="64"/>
+		<edge from="66" to="28"/>
+		<edge from="66" to="30"/>
+		<edge from="67" to="64"/>
+		<edge from="67" to="65"/>
+		<edge from="67" to="66"/>
+		<edge from="67" to="30"/>
+		<edge from="68" to="64"/>
+		<edge from="68" to="58"/>
+		<edge from="68" to="65"/>
+		<edge from="69" to="64"/>
+		<edge from="69" to="58"/>
+		<edge from="69" to="65"/>
+		<edge from="69" to="51"/>
+		<edge from="70" to="64"/>
+		<edge from="70" to="66"/>
+		<edge from="70" to="30"/>
+		<edge from="71" to="7"/>
+		<edge from="71" to="68"/>
+		<edge from="71" to="70"/>
+		<edge from="72" to="71"/>
+		<edge from="72" to="28"/>
+		<edge from="72" to="66"/>
+		<edge from="72" to="49"/>
+		<edge from="72" to="70"/>
+		<edge from="73" to="71"/>
+		<edge from="73" to="72"/>
+		<edge from="73" to="66"/>
+		<edge from="73" to="30"/>
+		<edge from="73" to="31"/>
+		<edge from="74" to="71"/>
+		<edge from="74" to="72"/>
+		<edge from="74" to="73"/>
+		<edge from="74" to="66"/>
+		<edge from="74" to="30"/>
+		<edge from="74" to="31"/>
+		<edge from="75" to="71"/>
+		<edge from="75" to="72"/>
+		<edge from="75" to="73"/>
+		<edge from="75" to="74"/>
+		<edge from="75" to="30"/>
+		<edge from="75" to="31"/>
+		<edge from="75" to="70"/>
+		<edge from="76" to="71"/>
+		<edge from="76" to="72"/>
+		<edge from="76" to="75"/>
+		<edge from="76" to="66"/>
+		<edge from="76" to="30"/>
+		<edge from="76" to="31"/>
+		<edge from="76" to="49"/>
+		<edge from="76" to="53"/>
+		<edge from="77" to="71"/>
+		<edge from="77" to="75"/>
+		<edge from="77" to="58"/>
+		<edge from="77" to="30"/>
+		<edge from="77" to="19"/>
+		<edge from="77" to="31"/>
+		<edge from="77" to="76"/>
+		<edge from="78" to="71"/>
+		<edge from="78" to="72"/>
+		<edge from="78" to="74"/>
+		<edge from="78" to="75"/>
+		<edge from="78" to="31"/>
+		<edge from="79" to="71"/>
+		<edge from="79" to="72"/>
+		<edge from="79" to="74"/>
+		<edge from="79" to="75"/>
+		<edge from="79" to="30"/>
+		<edge from="80" to="71"/>
+		<edge from="80" to="72"/>
+		<edge from="80" to="66"/>
+		<edge from="80" to="30"/>
+		<edge from="81" to="71"/>
+		<edge from="82" to="71"/>
+		<edge from="82" to="72"/>
+		<edge from="82" to="73"/>
+		<edge from="82" to="74"/>
+		<edge from="82" to="75"/>
+		<edge from="82" to="30"/>
+		<edge from="82" to="31"/>
+		<edge from="82" to="76"/>
+		<edge from="83" to="71"/>
+		<edge from="83" to="73"/>
+		<edge from="83" to="75"/>
+		<edge from="83" to="30"/>
+		<edge from="83" to="76"/>
+		<edge from="84" to="72"/>
+		<edge from="84" to="74"/>
+		<edge from="84" to="75"/>
+		<edge from="84" to="66"/>
+		<edge from="84" to="73"/>
+		<edge from="84" to="60"/>
+		<edge from="84" to="30"/>
+		<edge from="84" to="62"/>
+		<edge from="84" to="76"/>
+		<edge from="84" to="79"/>
+		<edge from="84" to="81"/>
+		<edge from="84" to="82"/>
+		<edge from="84" to="83"/>
+		<edge from="85" to="72"/>
+		<edge from="85" to="7"/>
+		<edge from="85" to="58"/>
+		<edge from="85" to="65"/>
+		<edge from="85" to="66"/>
+		<edge from="86" to="72"/>
+		<edge from="86" to="73"/>
+		<edge from="86" to="66"/>
+		<edge from="86" to="84"/>
+		<edge from="86" to="60"/>
+		<edge from="86" to="30"/>
+		<edge from="86" to="61"/>
+		<edge from="86" to="76"/>
+		<edge from="86" to="81"/>
+		<edge from="87" to="72"/>
+		<edge from="87" to="74"/>
+		<edge from="87" to="84"/>
+		<edge from="87" to="83"/>
+		<edge from="88" to="72"/>
+		<edge from="88" to="74"/>
+		<edge from="88" to="66"/>
+		<edge from="88" to="84"/>
+		<edge from="89" to="72"/>
+		<edge from="89" to="73"/>
+		<edge from="89" to="66"/>
+		<edge from="89" to="84"/>
+		<edge from="89" to="86"/>
+		<edge from="89" to="88"/>
+		<edge from="90" to="72"/>
+		<edge from="90" to="66"/>
+		<edge from="90" to="70"/>
+		<edge from="91" to="72"/>
+		<edge from="91" to="74"/>
+		<edge from="91" to="75"/>
+		<edge from="91" to="31"/>
+		<edge from="91" to="90"/>
+		<edge from="91" to="79"/>
+		<edge from="92" to="72"/>
+		<edge from="92" to="73"/>
+		<edge from="92" to="75"/>
+		<edge from="93" to="73"/>
+		<edge from="93" to="66"/>
+		<edge from="93" to="86"/>
+		<edge from="93" to="30"/>
+		<edge from="94" to="73"/>
+		<edge from="94" to="84"/>
+		<edge from="94" to="93"/>
+		<edge from="95" to="73"/>
+		<edge from="95" to="94"/>
+		<edge from="95" to="61"/>
+		<edge from="96" to="73"/>
+		<edge from="96" to="66"/>
+		<edge from="96" to="84"/>
+		<edge from="96" to="94"/>
+		<edge from="97" to="73"/>
+		<edge from="97" to="66"/>
+		<edge from="97" to="84"/>
+		<edge from="97" to="86"/>
+		<edge from="97" to="96"/>
+		<edge from="97" to="81"/>
+		<edge from="98" to="73"/>
+		<edge from="98" to="74"/>
+		<edge from="98" to="87"/>
+		<edge from="98" to="91"/>
+		<edge from="99" to="73"/>
+		<edge from="99" to="74"/>
+		<edge from="99" to="66"/>
+		<edge from="99" to="84"/>
+		<edge from="99" to="93"/>
+		<edge from="99" to="60"/>
+		<edge from="99" to="59"/>
+		<edge from="99" to="30"/>
+		<edge from="99" to="62"/>
+		<edge from="99" to="63"/>
+		<edge from="99" to="90"/>
+		<edge from="100" to="73"/>
+		<edge from="100" to="66"/>
+		<edge from="100" to="84"/>
+		<edge from="100" to="86"/>
+		<edge from="100" to="96"/>
+		<edge from="100" to="98"/>
+		<edge from="100" to="99"/>
+		<edge from="100" to="62"/>
+		<edge from="100" to="79"/>
+		<edge from="100" to="91"/>
+		<edge from="100" to="83"/>
+		<edge from="101" to="84"/>
+		<edge from="101" to="86"/>
+		<edge from="101" to="94"/>
+		<edge from="101" to="100"/>
+		<edge from="101" to="61"/>
+		<edge from="102" to="93"/>
+		<edge from="102" to="94"/>
+		<edge from="102" to="95"/>
+		<edge from="102" to="46"/>
+		<edge from="103" to="67"/>
+		<edge from="104" to="67"/>
+		<edge from="104" to="69"/>
+		<edge from="104" to="103"/>
+	</edges>
+</network>
