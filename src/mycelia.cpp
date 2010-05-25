@@ -253,7 +253,7 @@ void Mycelia::buildGraphList(MyceliaDataItem* dataItem) const
     dataItem->graphListVersion = gCopy->getVersion();
     
     glNewList(dataItem->nodeList, GL_COMPILE);
-    glutSolidSphere(nodeRadius, 20, 20);
+    gluSphere(dataItem->quadric, nodeRadius, 20, 20);
     glEndList();
     
     glNewList(dataItem->arrowList, GL_COMPILE);
@@ -1095,16 +1095,16 @@ int Mycelia::selectNode(Vrui::InputDevice* device) const
 
 int main(int argc, char** argv)
 {
-    // if we're an os x mac bundle, change current directory
+    // hack for os x app bundles
     // http://lists.apple.com/archives/mac-games-dev/2005/Nov/msg00028.html
-    string pwd(argv[0]);
+    /*string pwd(argv[0]);
     string bundle(".app/Contents/MacOS/");
     
     if(VruiHelp::contains(pwd, bundle))
     {
         pwd = pwd.substr(0, pwd.find_last_of('/'));
-        chdir(pwd.c_str());
-    }
+        int retval = chdir(pwd.c_str());
+    }*/
     
     char** appDefaults = 0;
     Mycelia app(argc, argv, appDefaults);

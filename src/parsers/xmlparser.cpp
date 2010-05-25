@@ -106,7 +106,7 @@ void XmlParser::parse(string& filename)
     {
         string::const_iterator nodeStart = lineMatches[1].first;
         string::const_iterator nodeEnd = lineMatches[1].second;
-        int xmlId;
+        int xmlId = -1;
         
         // loop through attributes
         while(regex_search(nodeStart, nodeEnd, attributeMatches, keyvalueRegex))

@@ -2,9 +2,9 @@ VRUIDIR = $(HOME)/Vrui-1.0
 include $(VRUIDIR)/etc/Vrui.makeinclude
 
 BASEDIR = /opt/local
-CC = /usr/bin/g++
+CC = $(BASEDIR)/bin/g++
 CFLAGS = -I $(BASEDIR)/include -I $(shell pwd)/src -Wno-deprecated -Wall -g -O2
-LINKFLAGS = -L$(BASEDIR)/lib -lGLU -lGLUT
+LINKFLAGS = -L$(BASEDIR)/lib -lGLU
 
 VPATH = src:src/generators:src/layout:src/parsers:src/tools:src/windows
 OBJS = 	barabasigenerator.o erdosgenerator.o wattsgenerator.o \
@@ -28,15 +28,15 @@ LINKFLAGS += -lxmlrpc_server_abyss++ -lxmlrpc_server++ -lxmlrpc_server_abyss -lx
 -lxmlrpc_client++ -lxmlrpc_client -lxmlrpc++ -lxmlrpc -lxmlrpc_util -lxmlrpc_xmlparse -lxmlrpc_xmltok -lcurl
 
 # nvidia cuda sdk
-CUDA_TOOLKIT_DIR = /usr/local/cuda
-CUDA_SDK_DIR = "/Developer/GPU Computing/C/common/inc"
-ifneq ($(wildcard $(CUDA_TOOLKIT_DIR)),)
-	NVCC = $(CUDA_TOOLKIT_DIR)/bin/nvcc
-	NVCC_CFLAGS = -I $(CUDA_SDK_DIR) -O2 
-	CFLAGS += -I $(CUDA_TOOLKIT_DIR)/include -D__CUDA__
-	LINKFLAGS += -L$(CUDA_TOOLKIT_DIR)/lib -lcuda -lcudart
-	OBJS += gpulayout.o
-endif
+#CUDA_TOOLKIT_DIR = /usr/local/cuda
+#CUDA_SDK_DIR = "/Developer/GPU Computing/C/common/inc"
+#ifneq ($(wildcard $(CUDA_TOOLKIT_DIR)),)
+#	NVCC = $(CUDA_TOOLKIT_DIR)/bin/nvcc
+#	NVCC_CFLAGS = -I $(CUDA_SDK_DIR) -O2
+#	CFLAGS += -I $(CUDA_TOOLKIT_DIR)/include -D__CUDA__
+#	LINKFLAGS += -L$(CUDA_TOOLKIT_DIR)/lib -lcuda -lcudart
+#	OBJS += gpulayout.o
+#endif
 
 .SUFFIXES: .cpp .cu .o
 
@@ -48,12 +48,12 @@ endif
 	@echo Compiling $<...
 	@$(NVCC) $(NVCC_CFLAGS) -c $<
 
-all: pch mycelia
+all: mycelia
 
 mycelia: $(OBJS)
 	@$(CC) -o $@ $(VRUI_LINKFLAGS) $(LINKFLAGS) $+
 
-pch: precompiled.hpp
+pch: src/precompiled.hpp
 	@$(CC) -x c++-header $(VRUI_CFLAGS) $(CFLAGS) $<
 
 clean:

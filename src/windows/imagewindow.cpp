@@ -90,14 +90,17 @@ void ImageWindow::ImageWidget::load(string scriptFilename)
     try
     {
         string cmdline = string(PYTHON) + " " + scriptFilename;
-        system(cmdline.c_str());
+        int retval = system(cmdline.c_str());
         
-        image = Images::readImageFile("/tmp/output.png");
-        width = image.getWidth() / image.getHeight() * Vrui::getDisplaySize();
-        height =  Vrui::getDisplaySize();
-        version++;
-        
-        getParent()->requestResize(this, calcNaturalSize());
+        if(retval == 0)
+        {
+            image = Images::readImageFile("/tmp/output.png");
+            width = image.getWidth() / image.getHeight() * Vrui::getDisplaySize();
+            height =  Vrui::getDisplaySize();
+            version++;
+            
+            getParent()->requestResize(this, calcNaturalSize());
+        }
     }
     catch(...)
     {
