@@ -270,22 +270,30 @@ void Mycelia::buildGraphList(MyceliaDataItem* dataItem) const
     glEndList();
 }
 
-void Mycelia::drawEdge(int s, int t, const MyceliaDataItem* dataItem) const
+void Mycelia::drawEdge(int source, int target, const MyceliaDataItem* dataItem) const
 {
-    const Vrui::Point source = gCopy->getPosition(s);
-    const Vrui::Point target = gCopy->getPosition(t);
-    
+    drawEdge(gCopy->getPosition(source), gCopy->getPosition(target), true, gCopy->isBidirectional(source, target), dataItem);
+}
+
+void Mycelia::drawEdge(const Vrui::Point& source, const Vrui::Point& target, bool drawArrow, bool isBidirectional, const MyceliaDataItem* dataItem) const
+{
     // computer graphics 2nd ed, p.413
     const Vrui::Vector edgeVector = target - source;
     const Vrui::Vector normalVector = Geometry::cross(edgeVector, zVector);
     const Vrui::Scalar length = Geometry::mag(edgeVector);
     
     // calculate space for directional arrow(s)
-    const bool bidirectional = gCopy->isBidirectional(s, t);
-    const double sourceOffset = bidirectional ? edgeOffset : 0;
-    const double targetOffset = bidirectional ? length - 2 * edgeOffset : length - edgeOffset;
+    double sourceOffset = 0;
+    double targetOffset = drawArrow ? length - edgeOffset : length;
+    
+    if(isBidirectional && drawArrow)
+    {
+        sourceOffset = edgeOffset;
+        targetOffset = length - 2 * edgeOffset;
+    }
     
     glPushMatrix();
+    
     // translate to point 1 and rotate towards point 2
     glTranslatef(source[0], source[1], source[2]);
     glRotatef(-VruiHelp::degrees(VruiHelp::angle(edgeVector, zVector)), normalVector[0], normalVector[1], normalVector[2]);
@@ -294,9 +302,13 @@ void Mycelia::drawEdge(int s, int t, const MyceliaDataItem* dataItem) const
     glTranslatef(0, 0, sourceOffset);
     gluCylinder(dataItem->quadric, edgeThickness, edgeThickness, targetOffset, 10, 1);
     
-    // move near point 2 and draw arrow
-    glTranslatef(0, 0, targetOffset);
-    glCallList(dataItem->arrowList);
+    if(drawArrow)
+    {
+        // move near point 2 and draw arrow
+        glTranslatef(0, 0, targetOffset);
+        glCallList(dataItem->arrowList);
+    }
+    
     glPopMatrix();
 }
 
@@ -321,17 +333,12 @@ void Mycelia::drawEdges(const MyceliaDataItem* dataItem) const
         
         if(bundleButton->getToggle())
         {
-            glBegin(GL_LINE_STRIP);
-            
             for(int segment = 0; segment <= edgeBundler->getSegmentCount(); segment++)
             {
-                Vrui::Point& p = *edgeBundler->getSegment(edge, segment);
-                Vrui::Point& q = *edgeBundler->getSegment(edge, segment + 1);
-                glVertex(p);
-                glVertex(q);
+                const Vrui::Point& p = *edgeBundler->getSegment(edge, segment);
+                const Vrui::Point& q = *edgeBundler->getSegment(edge, segment + 1);
+                drawEdge(p, q, false, false, dataItem);
             }
-            
-            glEnd();
         }
         else
         {

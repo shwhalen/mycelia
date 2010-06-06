@@ -37,9 +37,9 @@ void* FruchtermanReingoldLayout::layoutThreadMethod()
     
     for(remainingIterations = MAX_ITERATIONS; remainingIterations > 0 && !stopped; remainingIterations--)
     {
-        application->g->lock();
+        //application->g->lock();
         layoutStep();
-        application->g->unlock();
+        //application->g->unlock();
     }
     
     application->resetNavigationCallback(0);

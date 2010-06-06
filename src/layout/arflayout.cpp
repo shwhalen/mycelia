@@ -87,9 +87,9 @@ void* ArfLayout::layoutThreadMethod()
 {
     while(!stopped)
     {
-        application->g->lock();
+        //application->g->lock();
         layoutStep();
-        application->g->unlock();
+        //application->g->unlock();
     }
     
     return 0;
