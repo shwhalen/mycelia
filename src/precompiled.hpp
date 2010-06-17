@@ -16,12 +16,8 @@
 // syscalls
 #include <sys/wait.h>
 
-// glut
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+// glu
+#include <GL/glu.h>
 
 // vrui
 #include <Geometry/Ray.h>
