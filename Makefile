@@ -57,5 +57,5 @@ pch: src/precompiled.hpp
 	@$(CC) -x c++-header $(VRUI_CFLAGS) $(CFLAGS) $<
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 	rm -f src/precompiled.hpp.gch

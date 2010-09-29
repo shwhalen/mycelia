@@ -41,11 +41,11 @@ public:
     std::tr1::unordered_map<int, std::list<int> > adjacent;
     std::string label;
     Attributes attributes;
-    boost::shared_ptr<GLMaterial> material;
     float size;
     int component;
     int inDegree;
     int outDegree;
+    int material;
     
     Node()
     {
@@ -55,6 +55,7 @@ public:
         component = 0;
         inDegree = 0;
         outDegree = 0;
+        material = 0;
     }
 };
 
@@ -83,8 +84,11 @@ private:
     std::set<int> edges;
     int edgeId;
     
+    std::tr1::unordered_map<int, GLMaterial*> materialMap;
+    
     int version;
     Threads::Mutex mutex;
+    const std::list<int> empty; // returned by getEdges when none exist
     
 public:
     Graph(Mycelia*);

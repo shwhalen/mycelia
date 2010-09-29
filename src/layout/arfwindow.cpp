@@ -57,7 +57,7 @@ ArfWindow::ArfWindow(Mycelia* application)
     connectedConstantSlider->getValueChangedCallbacks().add(this, &ArfWindow::sliderCallback);
     
     // unconnected constant slider
-    p = VruiHelp::createParameter("Unconnected Const", -5, -1, layout->connectedSpringConstant, dialog);
+    p = VruiHelp::createParameter("Unconnected Const", -5, -1, layout->unconnectedSpringConstant, dialog);
     unconnectedConstantField = p.first;
     unconnectedConstantSlider = p.second;
     unconnectedConstantSlider->getValueChangedCallbacks().add(this, &ArfWindow::sliderCallback);

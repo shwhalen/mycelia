@@ -37,9 +37,7 @@ void* FruchtermanReingoldLayout::layoutThreadMethod()
     
     for(remainingIterations = MAX_ITERATIONS; remainingIterations > 0 && !stopped; remainingIterations--)
     {
-        //application->g->lock();
         layoutStep();
-        //application->g->unlock();
     }
     
     application->resetNavigationCallback(0);
@@ -110,8 +108,7 @@ void FruchtermanReingoldLayout::layoutStep()
         
         if(mag > temperature)
         {
-            mag = temperature / mag;
-            forceVector[node] *= mag;
+            forceVector[node] *= temperature / mag;
         }
         
         application->g->updatePosition(node, forceVector[node]);

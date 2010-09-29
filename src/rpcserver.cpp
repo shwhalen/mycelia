@@ -41,6 +41,7 @@ void* RpcServer::run()
     r.addMethod("add_node", new AddNode(app));
     r.addMethod("set_callback", new SetCallback(app, this));
     r.addMethod("set_edge_label", new SetEdgeLabel(app));
+    r.addMethod("set_edge_weight", new SetEdgeWeight(app));
     r.addMethod("set_layout_type", new SetLayoutType(app));
     r.addMethod("set_vertex_color", new SetNodeColor(app));
     r.addMethod("set_vertex_label", new SetNodeLabel(app));

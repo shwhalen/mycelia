@@ -657,18 +657,18 @@ void Mycelia::bundleCallback(GLMotif::ToggleButton::ValueChangedCallbackData* cb
     if(cbData->set)
     {
         stopLayout();
-        setLayoutType(LAYOUT_STATIC);
         edgeBundler->layout();
     }
     else
     {
+        edgeBundler->stop();
+        g->update();
         resumeLayout();
     }
 }
 
 void Mycelia::clearCallback(Misc::CallbackData* cbData)
 {
-    stopLayout();
     g->clear();
     
     // clear menu toggles
@@ -744,7 +744,6 @@ void Mycelia::fileOpenAction(GLMotif::FileSelectionDialog::OKCallbackData* cbDat
 
 void Mycelia::generatorCallback(GLMotif::RadioBox::ValueChangedCallbackData* cbData)
 {
-    stopLayout();
     g->clear();
     
     setLayoutType(LAYOUT_DYNAMIC);
@@ -958,8 +957,8 @@ void Mycelia::resetNavigationCallback(Misc::CallbackData* cbData)
     edgeOffset = nodeRadius + arrowHeight;
     
     Vrui::setNavigationTransformation(center, radius);
-    g->update();
     
+    g->update();
     resumeLayout();
 }
 
@@ -1102,17 +1101,6 @@ int Mycelia::selectNode(Vrui::InputDevice* device) const
 
 int main(int argc, char** argv)
 {
-    // hack for os x app bundles
-    // http://lists.apple.com/archives/mac-games-dev/2005/Nov/msg00028.html
-    /*string pwd(argv[0]);
-    string bundle(".app/Contents/MacOS/");
-    
-    if(VruiHelp::contains(pwd, bundle))
-    {
-        pwd = pwd.substr(0, pwd.find_last_of('/'));
-        int retval = chdir(pwd.c_str());
-    }*/
-    
     char** appDefaults = 0;
     Mycelia app(argc, argv, appDefaults);
     app.run();

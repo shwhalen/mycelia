@@ -207,6 +207,25 @@ public:
     }
 };
 
+class SetEdgeWeight : public xmlrpc_c::method
+{
+    Mycelia* app;
+    
+public:
+    SetEdgeWeight(Mycelia* app) : app(app) {}
+    
+    void execute(const xmlrpc_c::paramList& params, xmlrpc_c::value* retval)
+    {
+        int edge = params.getInt(0);
+        double weight = params.getDouble(1);
+        params.verifyEnd(2);
+        
+        app->g->setEdgeWeight(edge, weight);
+        
+        *retval = xmlrpc_c::value_int(0);
+    }
+};
+
 class SetLayoutType : public xmlrpc_c::method
 {
     Mycelia* app;

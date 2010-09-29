@@ -32,17 +32,13 @@ Graph& Graph::operator=(const Graph& g)
     application = g.application;
     version = g.version;
     
-    nodeMap.clear();
-    nodeMap.insert(g.nodeMap.begin(), g.nodeMap.end());
+    nodes = g.nodes;
+    nodeMap = g.nodeMap;
     
-    nodes.clear();
-    nodes.insert(g.nodes.begin(), g.nodes.end());
+    edges = g.edges;
+    edgeMap = g.edgeMap;
     
-    edgeMap.clear();
-    edgeMap.insert(g.edgeMap.begin(), g.edgeMap.end());
-    
-    edges.clear();
-    edges.insert(g.edges.begin(), g.edges.end());
+    materialMap = g.materialMap;
     
     return *this;
 }
@@ -52,6 +48,7 @@ Graph& Graph::operator=(const Graph& g)
  */
 void Graph::clear()
 {
+    application->stopLayout();
     mutex.lock();
     
     nodes.clear();
@@ -61,6 +58,8 @@ void Graph::clear()
     edges.clear();
     edgeMap.clear();
     edgeMap.rehash(1000);
+    
+    // not clearing materials, for now
     
     version = -1;
     nodeId = -1;
@@ -244,7 +243,10 @@ const Edge& Graph::getEdge(int edge)
 
 const list<int>& Graph::getEdges(int source, int target)
 {
-    return nodeMap[source].adjacent[target];
+    if(hasEdge(source, target))
+        return nodeMap[source].adjacent[target];
+        
+    return empty;
 }
 
 const std::string& Graph::getEdgeLabel(int edge)
@@ -397,7 +399,8 @@ const string& Graph::getNodeLabel(int node)
 
 GLMaterial* Graph::getMaterial(int node)
 {
-    return nodeMap[node].material.get();
+    //return nodeMap[node].material.get();
+    return materialMap[nodeMap[node].material];
 }
 
 const set<int>& Graph::getNodes() const
@@ -452,7 +455,28 @@ void Graph::setColor(int node, int r, int g, int b, int a)
 
 void Graph::setColor(int node, double r, double g, double b, double a)
 {
-    nodeMap[node].material = boost::shared_ptr<GLMaterial>(new GLMaterial(GLMaterial::Color(r, g, b, a)));
+    GLMaterial::Color c(r, g, b, a);
+    std::tr1::unordered_map<int, GLMaterial*>::iterator it;
+    int key = 0;
+    
+    // look for color in the cache
+    for(it = materialMap.begin(); it != materialMap.end(); it++)
+    {
+        if(it->second->ambient == c)
+        {
+            key = it->first;
+            break;
+        }
+    }
+    
+    // if not found, add it
+    if(it == materialMap.end())
+    {
+        key = materialMap.size();
+        materialMap[key] = new GLMaterial(GLMaterial::Color(r, g, b, a));
+    }
+    
+    nodeMap[node].material = key;
     
     update();
 }

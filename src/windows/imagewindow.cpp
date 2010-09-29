@@ -87,23 +87,16 @@ void ImageWindow::ImageWidget::initContext(GLContextData& contextData) const
 
 void ImageWindow::ImageWidget::load(string scriptFilename)
 {
-    try
+    string cmdline = string(PYTHON) + " " + scriptFilename;
+    int retval = system(cmdline.c_str());
+    
+    if(retval == 0)
     {
-        string cmdline = string(PYTHON) + " " + scriptFilename;
-        int retval = system(cmdline.c_str());
+        image = Images::readImageFile("/tmp/output.png");
+        width = image.getWidth() / image.getHeight() * Vrui::getDisplaySize();
+        height =  Vrui::getDisplaySize();
+        version++;
         
-        if(retval == 0)
-        {
-            image = Images::readImageFile("/tmp/output.png");
-            width = image.getWidth() / image.getHeight() * Vrui::getDisplaySize();
-            height =  Vrui::getDisplaySize();
-            version++;
-            
-            getParent()->requestResize(this, calcNaturalSize());
-        }
-    }
-    catch(...)
-    {
-        cout << "error executing " << scriptFilename << endl;
+        getParent()->requestResize(this, calcNaturalSize());
     }
 }
