@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,11 @@
 
 #include <mycelia.hpp>
 #include <vruihelp.hpp>
+
+#define MATERIAL_NODE_DEFAULT 0
+#define MATERIAL_EDGE_DEFAULT 1
+#define MATERIAL_SELECTED 2
+#define MATERIAL_SELECTED_PREVIOUS 3
 
 namespace boost
 {
@@ -96,8 +101,9 @@ public:
     
     // general
     void clear();
-    std::pair<Vrui::Point, Vrui::Scalar> locate();
-    int getVersion() const;
+    const std::pair<Vrui::Point, Vrui::Scalar> locate();
+    const int getVersion() const;
+    const GLMaterial* getMaterial(int);
     void randomizePositions(int);
     void resetVelocities();
     void update();
@@ -106,41 +112,41 @@ public:
     void unlock() { mutex.unlock(); }
     
     // edges
-    int addEdge(int, int);
+    const int addEdge(int, int);
     void clearEdges();
-    int deleteEdge(int);
+    const int deleteEdge(int);
     const Edge& getEdge(int);
     const std::set<int>& getEdges() const;
     const std::list<int>& getEdges(int, int);
-    int getEdgeCount() const;
+    const int getEdgeCount() const;
     const std::string& getEdgeLabel(int);
-    float getEdgeWeight(int);
-    bool hasEdge(int, int);
-    bool isBidirectional(int);
-    bool isBidirectional(int, int);
-    bool isValidEdge(int) const;
+    const float getEdgeWeight(int);
+    const bool hasEdge(int, int);
+    const bool isBidirectional(int);
+    const bool isBidirectional(int, int);
+    const bool isValidEdge(int) const;
     void setEdgeLabel(int, const std::string&);
     void setEdgeWeight(int, float);
     
     // nodes
-    int addNode();
-    int addNode(const Vrui::Point&);
-    int addNode(const std::string&);
-    int deleteNode();
-    int deleteNode(int);
+    const int addNode();
+    const int addNode(const Vrui::Point&);
+    const int addNode(const std::string&);
+    const int deleteNode();
+    const int deleteNode(int);
     const Attributes& getAttributes(int);
-    int getComponent(int);
-    int getDegree(int);
+    const int getComponent(int);
+    const int getDegree(int);
     const std::string& getNodeLabel(int);
     const std::set<int>& getNodes() const;
-    int getNodeCount() const;
-    GLMaterial* getMaterial(int);
+    const int getNodeCount() const;
+    const GLMaterial* getNodeMaterial(int);
     const Vrui::Point& getPosition(int);
     const Vrui::Vector& getVelocity(int);
-    float getSize(int);
+    const float getSize(int);
     const Vrui::Point& getSourcePosition(int);
     const Vrui::Point& getTargetPosition(int);
-    bool isValidNode(int) const;
+    const bool isValidNode(int) const;
     void setAttribute(int, std::string&, std::string&);
     void setColor(int, int, int, int, int = 255.0);
     void setColor(int, double, double, double, double = 1.0);

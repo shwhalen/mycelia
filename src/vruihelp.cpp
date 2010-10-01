@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,15 @@ Vrui::Point midpoint(const Vrui::Point& p, const Vrui::Vector& v)
 Vrui::Point midpoint(const Vrui::Point& p, const Vrui::Point& q)
 {
     return midpoint(p, q - p);
+}
+
+Vrui::Vector rk4(const Vrui::Vector& p, const Vrui::Vector& v, double dt)
+{
+    Vrui::Vector k1 = dt * v;
+    Vrui::Vector k2 = dt * (p + 0.5 * k1);
+    Vrui::Vector k3 = dt * (p + 0.5 * k2);
+    Vrui::Vector k4 = dt * (p + k3);
+    return p + (k1 + Vrui::Scalar(2) * k2 + Vrui::Scalar(2) * k3 + k4) / Vrui::Scalar(6);
 }
 
 bool contains(string& s, string& pattern)

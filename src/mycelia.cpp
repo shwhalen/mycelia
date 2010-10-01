@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -319,7 +319,7 @@ void Mycelia::drawEdges(const MyceliaDataItem* dataItem) const
     this saves lots of time for very dense graphs.
     todo: the current approach to tracking drawn edges is a quick hack.
     */
-    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *dataItem->defaultEdgeMaterial);
+    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getMaterial(MATERIAL_EDGE_DEFAULT));
     bool drawn[1000][1000] = {{false}};
     
     foreach(int edge, gCopy->getEdges())
@@ -417,15 +417,6 @@ void Mycelia::drawNode(int node, const MyceliaDataItem* dataItem) const
     const Vrui::Point& p = gCopy->getPosition(node);
     const float size = gCopy->getSize(node);
     
-    if(node == selectedNode)
-    {
-        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *dataItem->selectedMaterial);
-    }
-    else if(node == previousNode)
-    {
-        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *dataItem->previousMaterial);
-    }
-    
     glPushMatrix();
     glTranslatef(p[0], p[1], p[2]);
     glScalef(size, size, size);
@@ -442,14 +433,7 @@ void Mycelia::drawNodes(const MyceliaDataItem* dataItem) const
             continue;
         }
         
-        GLMaterial* nodeMaterial = dataItem->defaultNodeMaterial;
-        
-        if(gCopy->getMaterial(node))
-        {
-            nodeMaterial = gCopy->getMaterial(node);
-        }
-        
-        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *nodeMaterial);
+        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getNodeMaterial(node));
         drawNode(node, dataItem);
     }
 }
@@ -495,7 +479,7 @@ void Mycelia::drawNodeLabels(const MyceliaDataItem* dataItem) const
 
 void Mycelia::drawShortestPath(const MyceliaDataItem* dataItem) const
 {
-    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *dataItem->selectedMaterial);
+    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getMaterial(MATERIAL_SELECTED));
     
     for(int i = selectedNode; i != previousNode; i = predecessorVector[i])
     {
@@ -508,7 +492,7 @@ void Mycelia::drawShortestPath(const MyceliaDataItem* dataItem) const
 
 void Mycelia::drawSpanningTree(const MyceliaDataItem* dataItem) const
 {
-    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *dataItem->selectedMaterial);
+    glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getMaterial(MATERIAL_SELECTED));
     
     for(int i = 0; i < (int)predecessorVector.size(); i++)
     {

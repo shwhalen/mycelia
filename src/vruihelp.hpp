@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ Vrui::Scalar angle(const Vrui::Vector&, const Vrui::Vector&);
 Vrui::Scalar degrees(Vrui::Scalar);
 Vrui::Point midpoint(const Vrui::Point&, const Vrui::Vector&);
 Vrui::Point midpoint(const Vrui::Point&, const Vrui::Point&);
+Vrui::Vector rk4(const Vrui::Vector&, const Vrui::Vector&, double);
 bool contains(std::string&, std::string&);
 bool endsWith(std::string&, const char*);
 bool startsWith(std::string&, std::string&);

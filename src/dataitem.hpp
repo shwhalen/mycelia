@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,10 +24,10 @@
 class MyceliaDataItem : public GLObject::DataItem
 {
 public:
-    GLMaterial* defaultNodeMaterial;
+    /*GLMaterial* defaultNodeMaterial;
     GLMaterial* defaultEdgeMaterial;
     GLMaterial* previousMaterial;
-    GLMaterial* selectedMaterial;
+    GLMaterial* selectedMaterial;*/
     GLUquadric* quadric;
     GLuint arrowList;
     GLuint graphList;
@@ -36,10 +36,10 @@ public:
     
     MyceliaDataItem()
     {
-        defaultNodeMaterial = new GLMaterial(GLMaterial::Color(1.0, 1.0, 1.0));
+        /*defaultNodeMaterial = new GLMaterial(GLMaterial::Color(1.0, 1.0, 1.0));
         defaultEdgeMaterial = new GLMaterial(GLMaterial::Color(0.3, 0.3, 0.3));
         previousMaterial = new GLMaterial(GLMaterial::Color(1.0, 0.5, 1.0));
-        selectedMaterial = new GLMaterial(GLMaterial::Color(1.0, 0.0, 1.0));
+        selectedMaterial = new GLMaterial(GLMaterial::Color(1.0, 0.0, 1.0));*/
         quadric = gluNewQuadric();
         arrowList = glGenLists(1);
         graphList = glGenLists(1);
@@ -49,10 +49,10 @@ public:
     
     ~MyceliaDataItem()
     {
-        delete defaultNodeMaterial;
+        /*delete defaultNodeMaterial;
         delete defaultEdgeMaterial;
         delete previousMaterial;
-        delete selectedMaterial;
+        delete selectedMaterial;*/
         gluDeleteQuadric(quadric);
         glDeleteLists(arrowList, 1);
         glDeleteLists(graphList, 1);

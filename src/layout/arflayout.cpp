@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,9 +85,15 @@ void ArfLayout::layout()
 
 void* ArfLayout::layoutThreadMethod()
 {
+    // there is an inherent conflict between having a responsive dynamic layout and
+    // threads that can add/remove nodes/edges at any time (graph tool/rpc server).
+    // if using in the cave: comment out the lock/unlock.
+    // if using rpc server: uncomment.
     while(!stopped)
     {
+        application->g->lock();
         layoutStep();
+        application->g->unlock();
     }
     
     return 0;
@@ -96,6 +102,15 @@ void* ArfLayout::layoutThreadMethod()
 void ArfLayout::layoutStep()
 {
     int nodeCount = application->g->getNodeCount();
+    vector<Vrui::Vector> velocityVector(nodeCount);
+    vector<Vrui::Vector> positionVector(nodeCount);
+    
+    double totalWeight = 0;
+    
+    foreach(int edge, application->g->getEdges())
+    {
+        totalWeight += application->g->getEdgeWeight(edge);
+    }
     
     foreach(int source, application->g->getNodes())
     {
@@ -106,10 +121,10 @@ void ArfLayout::layoutStep()
         
         double mass = application->g->getSize(source); // treat size as mass
         Vrui::Vector velocity = application->g->getVelocity(source);
-        
         Vrui::Vector dampingForce = dampingConstant * velocity;
-        Vrui::Vector springForce(0);
-        Vrui::Vector repulsionForce(0);
+        
+        //Vrui::Vector springForce(0);
+        //Vrui::Vector repulsionForce(0);
         
         foreach(int target, application->g->getNodes())
         {
@@ -131,16 +146,35 @@ void ArfLayout::layoutStep()
             double springLength = getSpringLength(edgeCount);
             
             double constA = springConstant * (mag - springLength) / mag;
-            springForce += constA * v;
+            Vrui::Vector springForce = constA * v;
             
             double constB = layoutRadius * sqrt(nodeCount) / pow(mag, 1 + beta);
-            repulsionForce += constB * v;
+            Vrui::Vector repulsionForce = constB * v;
+            
+            double edgeWeight = 0;
+            
+            if(application->g->hasEdge(source, target))
+            {
+                foreach(int edge, application->g->getEdges(source, target))
+                {
+                    edgeWeight += application->g->getEdgeWeight(edge);
+                }
+                
+                edgeWeight /= totalWeight;
+            }
+            
+            mass *= (1 + edgeWeight);
+            velocityVector[source] = VruiHelp::rk4(velocityVector[source], (dampingForce + springForce + repulsionForce) / mass, deltaTime);
+            positionVector[source] = VruiHelp::rk4(positionVector[source], velocity, deltaTime);
         }
         
-        Vrui::Vector deltaVelocity = deltaTime * (dampingForce + springForce + repulsionForce) / mass;
-        application->g->updateVelocity(source, deltaVelocity);
-        
-        Vrui::Vector deltaPosition = deltaTime * velocity;
-        application->g->updatePosition(source, deltaPosition);
+        //velocityVector[source] += deltaTime * (dampingForce + springForce + repulsionForce) / mass;
+        //positionVector[source] += deltaTime * velocity;
+    }
+    
+    foreach(int node, application->g->getNodes())
+    {
+        application->g->updateVelocity(node, velocityVector[node]);
+        application->g->updatePosition(node, positionVector[node]);
     }
 }

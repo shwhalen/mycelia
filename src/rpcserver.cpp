@@ -1,6 +1,6 @@
 /*
  * Mycelia immersive 3d network visualization tool.
- * Copyright (C) 2008-2009 Sean Whalen.
+ * Copyright (C) 2008-2010 Sean Whalen.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,9 @@ void* RpcServer::run()
     r.addMethod("set_edge_label", new SetEdgeLabel(app));
     r.addMethod("set_edge_weight", new SetEdgeWeight(app));
     r.addMethod("set_layout_type", new SetLayoutType(app));
-    r.addMethod("set_vertex_color", new SetNodeColor(app));
-    r.addMethod("set_vertex_label", new SetNodeLabel(app));
-    r.addMethod("set_vertex_size", new SetNodeSize(app));
+    r.addMethod("set_node_color", new SetNodeColor(app));
+    r.addMethod("set_node_label", new SetNodeLabel(app));
+    r.addMethod("set_node_size", new SetNodeSize(app));
     r.addMethod("set_status", new SetStatus(app));
     r.addMethod("start_layout", new StartLayout(app));
     r.addMethod("stop_layout", new StopLayout(app));
