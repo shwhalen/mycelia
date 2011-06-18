@@ -22,14 +22,7 @@ using namespace std;
 
 Graph::Graph(Mycelia* application): application(application)
 {
-    materialMap[MATERIAL_NODE_DEFAULT] = new GLMaterial(GLMaterial::Color(1.0, 1.0, 1.0));
-    materialMap[MATERIAL_EDGE_DEFAULT] = new GLMaterial(GLMaterial::Color(0.3, 0.3, 0.3));
-    materialMap[MATERIAL_SELECTED] = new GLMaterial(GLMaterial::Color(1.0, 0.5, 1.0));
-    materialMap[MATERIAL_SELECTED_PREVIOUS] = new GLMaterial(GLMaterial::Color(1.0, 0.0, 1.0));
-    
-    version = -1;
-    nodeId = -1;
-    edgeId = -1;
+    init();
 }
 
 Graph& Graph::operator=(const Graph& g)
@@ -43,7 +36,7 @@ Graph& Graph::operator=(const Graph& g)
     edges = g.edges;
     edgeMap = g.edgeMap;
     
-    materialMap = g.materialMap;
+    materialVector = g.materialVector;
     
     return *this;
 }
@@ -56,6 +49,14 @@ void Graph::clear()
     application->stopLayout();
     mutex.lock();
     
+    init();
+    
+    mutex.unlock();
+    application->clearSelections();
+}
+
+void Graph::init()
+{
     nodes.clear();
     nodeMap.clear();
     nodeMap.rehash(1000);
@@ -64,18 +65,16 @@ void Graph::clear()
     edgeMap.clear();
     edgeMap.rehash(1000);
     
-    materialMap.clear();
-    materialMap[MATERIAL_NODE_DEFAULT] = new GLMaterial(GLMaterial::Color(1.0, 1.0, 1.0));
-    materialMap[MATERIAL_EDGE_DEFAULT] = new GLMaterial(GLMaterial::Color(0.3, 0.3, 0.3));
-    materialMap[MATERIAL_SELECTED] = new GLMaterial(GLMaterial::Color(1.0, 0.5, 1.0));
-    materialMap[MATERIAL_SELECTED_PREVIOUS] = new GLMaterial(GLMaterial::Color(1.0, 0.0, 1.0));
+    materialVector.clear();
+    materialVector.resize(4);
+    materialVector[MATERIAL_NODE_DEFAULT] = new GLMaterial(GLMaterial::Color(1.0, 1.0, 1.0));
+    materialVector[MATERIAL_EDGE_DEFAULT] = new GLMaterial(GLMaterial::Color(0.3, 0.3, 0.3));
+    materialVector[MATERIAL_SELECTED] = new GLMaterial(GLMaterial::Color(1.0, 0.5, 1.0));
+    materialVector[MATERIAL_SELECTED_PREVIOUS] = new GLMaterial(GLMaterial::Color(1.0, 0.0, 1.0));
     
     version = -1;
     nodeId = -1;
     edgeId = -1;
-    
-    mutex.unlock();
-    application->clearSelections();
 }
 
 const pair<Vrui::Point, Vrui::Scalar> Graph::locate()
@@ -116,10 +115,12 @@ const pair<Vrui::Point, Vrui::Scalar> Graph::locate()
 
 const GLMaterial* Graph::getMaterial(int materialId)
 {
-    if(materialMap.find(materialId) == materialMap.end())
-        return materialMap[MATERIAL_NODE_DEFAULT];
-        
-    return materialMap[materialId];
+    if(materialId < 0 || materialId >= (int)materialVector.size())
+    {
+        return materialVector[MATERIAL_NODE_DEFAULT];
+    }
+    
+    return materialVector[materialId];
 }
 
 const int Graph::getVersion() const
@@ -341,7 +342,7 @@ const int Graph::addNode()
 const int Graph::addNode(const Vrui::Point& position)
 {
     int id = addNode();
-    setPosition(id, position);
+    setNodePosition(id, position);
     return id;
 }
 
@@ -394,17 +395,17 @@ const int Graph::deleteNode(int node)
     return node;
 }
 
-const Attributes& Graph::getAttributes(int node)
+const Attributes& Graph::getNodeAttributes(int node)
 {
     return nodeMap[node].attributes;
 }
 
-const int Graph::getComponent(int node)
+const int Graph::getNodeComponent(int node)
 {
     return nodeMap[node].component;
 }
 
-const int Graph::getDegree(int node)
+const int Graph::getNodeDegree(int node)
 {
     return nodeMap[node].inDegree + nodeMap[node].outDegree;
 }
@@ -429,27 +430,27 @@ const int Graph::getNodeCount() const
     return (int)nodes.size();
 }
 
-const Vrui::Point& Graph::getPosition(int node)
+const Vrui::Point& Graph::getNodePosition(int node)
 {
     return nodeMap[node].position;
 }
 
-const float Graph::getSize(int node)
+const float Graph::getNodeSize(int node)
 {
     return nodeMap[node].size;
 }
 
-const Vrui::Point& Graph::getSourcePosition(int edge)
+const Vrui::Point& Graph::getSourceNodePosition(int edge)
 {
     return nodeMap[edgeMap[edge].source].position;
 }
 
-const Vrui::Point& Graph::getTargetPosition(int edge)
+const Vrui::Point& Graph::getTargetNodePosition(int edge)
 {
     return nodeMap[edgeMap[edge].target].position;
 }
 
-const Vrui::Vector& Graph::getVelocity(int node)
+const Vrui::Vector& Graph::getNodeVelocity(int node)
 {
     return nodeMap[node].velocity;
 }
@@ -459,37 +460,36 @@ const bool Graph::isValidNode(int node) const
     return nodeMap.find(node) != nodeMap.end();
 }
 
-void Graph::setAttribute(int node, string& key, string& value)
+void Graph::setNodeAttribute(int node, string& key, string& value)
 {
     nodeMap[node].attributes.push_back(pair<string, string>(key, value));
 }
 
-void Graph::setColor(int node, int r, int g, int b, int a)
+void Graph::setNodeColor(int node, int r, int g, int b, int a)
 {
-    setColor(node, r / 255.0, g / 255.0, b / 255.0, a / 255.0);
+    setNodeColor(node, r / 255.0, g / 255.0, b / 255.0, a / 255.0);
 }
 
-void Graph::setColor(int node, double r, double g, double b, double a)
+void Graph::setNodeColor(int node, double r, double g, double b, double a)
 {
     GLMaterial::Color c(r, g, b, a);
-    std::tr1::unordered_map<int, GLMaterial*>::iterator it;
-    int materialId = 0;
+    int materialId = -1;
     
     // look for color in the cache
-    for(it = materialMap.begin(); it != materialMap.end(); it++)
+    for(int i = 0; i < (int)materialVector.size(); i++)
     {
-        if(it->second->ambient == c)
+        if(materialVector[i]->ambient == c)
         {
-            materialId = it->first;
+            materialId = i;
             break;
         }
     }
     
     // if not found, add it
-    if(it == materialMap.end())
+    if(materialId == -1)
     {
-        materialId = materialMap.size();
-        materialMap[materialId] = new GLMaterial(GLMaterial::Color(r, g, b, a));
+        materialVector.push_back(new GLMaterial(c));
+        materialId = materialVector.size() - 1;
     }
     
     nodeMap[node].material = materialId;
@@ -504,21 +504,26 @@ void Graph::setNodeLabel(int node, const std::string& label)
     update();
 }
 
-void Graph::setPosition(int node, const Vrui::Point& position)
+void Graph::setNodePosition(int node, const Vrui::Point& position)
 {
     nodeMap[node].position = position;
     
     update();
 }
 
-void Graph::setSize(int node, float size)
+void Graph::setNodeVelocity(int node, const Vrui::Vector& velocity)
+{
+    nodeMap[node].velocity = velocity;
+}
+
+void Graph::setNodeSize(int node, float size)
 {
     nodeMap[node].size = size;
     
     update();
 }
 
-void Graph::updatePosition(int node, const Vrui::Vector& delta)
+void Graph::updateNodePosition(int node, const Vrui::Vector& delta)
 {
     nodeMap[node].position += delta;
     
@@ -526,7 +531,7 @@ void Graph::updatePosition(int node, const Vrui::Vector& delta)
 }
 
 // no update() needed
-void Graph::updateVelocity(int node, const Vrui::Vector& delta)
+void Graph::updateNodeVelocity(int node, const Vrui::Vector& delta)
 {
     nodeMap[node].velocity += delta;
 }

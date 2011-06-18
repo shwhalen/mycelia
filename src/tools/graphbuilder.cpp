@@ -31,12 +31,7 @@ GraphBuilderFactory* GraphBuilder::factory = 0;
 GraphBuilderFactory::GraphBuilderFactory(Vrui::ToolManager& toolManager, Mycelia* application)
     : ToolFactory("GraphBuilder", toolManager), application(application)
 {
-    layout.setNumDevices(1);    // custom tools require one input device
     layout.setNumButtons(0, 1); // 0th device requires 1 button
-    
-    /*ToolFactory* parentToolFactory = toolManager.loadClass("Tool");
-    parentToolFactory->addChildClass(this);
-    addParentClass(parentToolFactory);*/
     
     GraphBuilder::factory = this;
 }
@@ -72,9 +67,9 @@ GraphBuilder::GraphBuilder(const Vrui::ToolFactory* factory, const Vrui::ToolInp
     fromNode = SELECTION_NONE;
 }
 
-void GraphBuilder::buttonCallback(int deviceIndex, int buttonIndex, Vrui::InputDevice::ButtonCallbackData* cbData)
+void GraphBuilder::buttonCallback(int buttonIndex, Vrui::InputDevice::ButtonCallbackData* cbData)
 {
-    Vrui::InputDevice* device = input.getDevice(0);
+    Vrui::InputDevice* device = getButtonDevice(0);
     int selectedNode = factory->application->selectNode(device);
     
     if(cbData->newButtonState)
@@ -133,7 +128,7 @@ void GraphBuilder::display(GLContextData& contextData) const
 
 void GraphBuilder::frame()
 {
-    Vrui::InputDevice* device = input.getDevice(0);
+    Vrui::InputDevice* device = input.getSlotDevice(0);
     currentPosition = getPosition(device);
 }
 

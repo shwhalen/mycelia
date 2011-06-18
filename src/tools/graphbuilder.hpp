@@ -21,7 +21,6 @@
 
 #include <graph.hpp>
 #include <mycelia.hpp>
-//#include <layout/graphlayout.hpp>
 
 class Mycelia;
 
@@ -50,18 +49,14 @@ private:
     Vrui::ONTransform initial;
     bool dragging;
     
-    // We store the previous node internally so that multiple graphBuilder
-    // tools can function independently. However, note that the visual
-    // feedback will be shared among the graphBuilder tools if an edge
-    // is drawn simultaneously.
     Vrui::Point currentPosition;
     Vrui::Point fromPosition;
-    int fromNode;
+    int fromNode; // stored internally to enable multiple tools
     
 public:
     GraphBuilder(const Vrui::ToolFactory*, const Vrui::ToolInputAssignment&);
     
-    void buttonCallback(int, int, Vrui::InputDevice::ButtonCallbackData*);
+    void buttonCallback(int, Vrui::InputDevice::ButtonCallbackData*);
     void display(GLContextData&) const;
     void frame();
     const Vrui::ToolFactory* getFactory() const;

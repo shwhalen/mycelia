@@ -83,12 +83,10 @@ void ArfLayout::layout()
     layoutThread->start(this, &ArfLayout::layoutThreadMethod);
 }
 
+// if removing nodes/edges is enabled (ex: rpcserver), layoutStep needs to be
+// locked
 void* ArfLayout::layoutThreadMethod()
 {
-    // there is an inherent conflict between having a responsive dynamic layout and
-    // threads that can add/remove nodes/edges at any time (graph tool/rpc server).
-    // if using in the cave: comment out the lock/unlock.
-    // if using rpc server: uncomment.
     while(!stopped)
     {
         application->g->lock();
@@ -105,13 +103,6 @@ void ArfLayout::layoutStep()
     vector<Vrui::Vector> velocityVector(nodeCount);
     vector<Vrui::Vector> positionVector(nodeCount);
     
-    double totalWeight = 0;
-    
-    foreach(int edge, application->g->getEdges())
-    {
-        totalWeight += application->g->getEdgeWeight(edge);
-    }
-    
     foreach(int source, application->g->getNodes())
     {
         if(!application->isSelectedComponent(source) || source == application->getSelectedNode())
@@ -119,12 +110,9 @@ void ArfLayout::layoutStep()
             continue;
         }
         
-        double mass = application->g->getSize(source); // treat size as mass
-        Vrui::Vector velocity = application->g->getVelocity(source);
+        double mass = application->g->getNodeSize(source); // treat size as mass
+        Vrui::Vector velocity = application->g->getNodeVelocity(source);
         Vrui::Vector dampingForce = dampingConstant * velocity;
-        
-        //Vrui::Vector springForce(0);
-        //Vrui::Vector repulsionForce(0);
         
         foreach(int target, application->g->getNodes())
         {
@@ -138,7 +126,7 @@ void ArfLayout::layoutStep()
                 continue;
             }
             
-            Vrui::Vector v = application->g->getPosition(source) - application->g->getPosition(target);
+            Vrui::Vector v = application->g->getNodePosition(source) - application->g->getNodePosition(target);
             Vrui::Scalar mag = Geometry::mag(v);
             
             int edgeCount = (int)application->g->hasEdge(source, target) + (int)application->g->hasEdge(target, source);
@@ -151,30 +139,14 @@ void ArfLayout::layoutStep()
             double constB = layoutRadius * sqrt(nodeCount) / pow(mag, 1 + beta);
             Vrui::Vector repulsionForce = constB * v;
             
-            double edgeWeight = 0;
-            
-            if(application->g->hasEdge(source, target))
-            {
-                foreach(int edge, application->g->getEdges(source, target))
-                {
-                    edgeWeight += application->g->getEdgeWeight(edge);
-                }
-                
-                edgeWeight /= totalWeight;
-            }
-            
-            mass *= (1 + edgeWeight);
             velocityVector[source] = VruiHelp::rk4(velocityVector[source], (dampingForce + springForce + repulsionForce) / mass, deltaTime);
             positionVector[source] = VruiHelp::rk4(positionVector[source], velocity, deltaTime);
         }
-        
-        //velocityVector[source] += deltaTime * (dampingForce + springForce + repulsionForce) / mass;
-        //positionVector[source] += deltaTime * velocity;
     }
     
     foreach(int node, application->g->getNodes())
     {
-        application->g->updateVelocity(node, velocityVector[node]);
-        application->g->updatePosition(node, positionVector[node]);
+        application->g->updateNodeVelocity(node, velocityVector[node]);
+        application->g->updateNodePosition(node, positionVector[node]);
     }
 }

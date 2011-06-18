@@ -45,6 +45,7 @@ public:
     void allocateSegments();
     void layout();
     void* layoutThreadMethod();
+    void layoutStep();
     int getIndex(int) const;
     Vrui::Point* getSegment(int, int);
     int getSegmentCount() const;

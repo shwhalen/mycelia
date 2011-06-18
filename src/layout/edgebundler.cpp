@@ -67,50 +67,7 @@ void* EdgeBundler::layoutThreadMethod()
     {
         for(int iteration = 0; iteration < iterations; iteration++)
         {
-            for(int firstEdge = 0; firstEdge < (int)application->g->getEdgeCount(); firstEdge++)
-            {
-                Vrui::Scalar k_p = K / Geometry::abs(application->g->getSourcePosition(firstEdge) - application->g->getTargetPosition(firstEdge));
-                
-                for(int segment = 1; *getSegment(firstEdge, segment) != application->g->getTargetPosition(firstEdge); segment++)
-                {
-                    Vrui::Point& p_prev     = *getSegment(firstEdge, segment - 1);
-                    Vrui::Point& p          = *getSegment(firstEdge, segment);
-                    Vrui::Point& p_next     = *getSegment(firstEdge, segment + 1);
-                    
-                    Vrui::Vector F_s_prev_v = p_prev - p;
-                    Vrui::Vector F_s_next_v = p_next - p;
-                    Vrui::Vector F_s_v      = (F_s_prev_v + F_s_next_v) * k_p;
-                    Vrui::Vector F_e_v      = Vrui::Vector(0, 0, 0);
-                    
-                    for(int secondEdge = 0; secondEdge < application->g->getEdgeCount(); secondEdge++)
-                    {
-                        if(firstEdge == secondEdge) continue;
-                        
-                        Vrui::Point& q = *getSegment(secondEdge, segment);
-                        Vrui::Vector v = q - p;
-                        Vrui::Scalar mag = Geometry::mag(v);
-                        
-                        if(mag > 0)
-                        {
-                            Vrui::Vector F_e_v_delta = v / Math::pow(mag, 3); // power 2=linear, 3=quadratic
-                            F_e_v += F_e_v_delta;
-                        }
-                    }
-                    
-                    Vrui::Vector force  = Vrui::Vector(0, 0, 0);
-                    Vrui::Vector F_v    = F_s_v + F_e_v;
-                    Vrui::Scalar mag    = Geometry::mag(F_v);
-                    
-                    if(mag > 0)
-                    {
-                        if(mag > 1) F_v = F_v.normalize();
-                        force += F_v * stepsize;
-                    }
-                    
-                    p += force;
-                }
-            }
-            
+            layoutStep();
             application->g->update();
         }
         
@@ -121,6 +78,53 @@ void* EdgeBundler::layoutThreadMethod()
     }
     
     return 0;
+}
+
+void EdgeBundler::layoutStep()
+{
+    for(int firstEdge = 0; firstEdge < (int)application->g->getEdgeCount(); firstEdge++)
+    {
+        Vrui::Scalar k_p = K / Geometry::abs(application->g->getSourceNodePosition(firstEdge) - application->g->getTargetNodePosition(firstEdge));
+        
+        for(int segment = 1; *getSegment(firstEdge, segment) != application->g->getTargetNodePosition(firstEdge); segment++)
+        {
+            Vrui::Point& p_prev     = *getSegment(firstEdge, segment - 1);
+            Vrui::Point& p          = *getSegment(firstEdge, segment);
+            Vrui::Point& p_next     = *getSegment(firstEdge, segment + 1);
+            
+            Vrui::Vector F_s_prev_v = p_prev - p;
+            Vrui::Vector F_s_next_v = p_next - p;
+            Vrui::Vector F_s_v      = (F_s_prev_v + F_s_next_v) * k_p;
+            Vrui::Vector F_e_v      = Vrui::Vector(0, 0, 0);
+            
+            for(int secondEdge = 0; secondEdge < application->g->getEdgeCount(); secondEdge++)
+            {
+                if(firstEdge == secondEdge) continue;
+                
+                Vrui::Point& q = *getSegment(secondEdge, segment);
+                Vrui::Vector v = q - p;
+                Vrui::Scalar mag = Geometry::mag(v);
+                
+                if(mag > 0)
+                {
+                    Vrui::Vector F_e_v_delta = v / Math::pow(mag, 3); // power 2=linear, 3=quadratic
+                    F_e_v += F_e_v_delta;
+                }
+            }
+            
+            Vrui::Vector force  = Vrui::Vector(0, 0, 0);
+            Vrui::Vector F_v    = F_s_v + F_e_v;
+            Vrui::Scalar mag    = Geometry::mag(F_v);
+            
+            if(mag > 0)
+            {
+                if(mag > 1) F_v = F_v.normalize();
+                force += F_v * stepsize;
+            }
+            
+            p += force;
+        }
+    }
 }
 
 inline int EdgeBundler::getIndex(int i) const
@@ -136,11 +140,11 @@ Vrui::Point* EdgeBundler::getSegment(int edge, int segment)
     {
         if(segment == 0)
         {
-            segmentVector[edge][index] = Vrui::Point(application->g->getSourcePosition(edge));
+            segmentVector[edge][index] = Vrui::Point(application->g->getSourceNodePosition(edge));
         }
         else if(segment > segments)
         {
-            segmentVector[edge][index] = Vrui::Point(application->g->getTargetPosition(edge));
+            segmentVector[edge][index] = Vrui::Point(application->g->getTargetNodePosition(edge));
         }
         else
         {

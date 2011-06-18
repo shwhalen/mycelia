@@ -44,8 +44,8 @@ void AttributeWindow::clear() const
 {
     for(int i = 0; i < (int)labelVector.size(); i++)
     {
-        labelVector[i]->setLabel("");
-        fieldVector[i]->setLabel("");
+        labelVector[i]->setString("");
+        fieldVector[i]->setString("");
     }
     
     Vrui::requestUpdate();
@@ -67,8 +67,8 @@ void AttributeWindow::update(const Attributes& attributes) const
     {
         if(i > (int)labelVector.size()) return;
         
-        labelVector[i]->setLabel(entry->first.c_str());
-        fieldVector[i]->setLabel(entry->second.c_str());
+        labelVector[i]->setString(entry->first.c_str());
+        fieldVector[i]->setString(entry->second.c_str());
         i++;
     }
     

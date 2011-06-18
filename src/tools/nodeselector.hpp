@@ -52,7 +52,7 @@ private:
 public:
     NodeSelector(const Vrui::ToolFactory*, const Vrui::ToolInputAssignment&);
     
-    void buttonCallback(int, int, Vrui::InputDevice::ButtonCallbackData*);
+    void buttonCallback(int, Vrui::InputDevice::ButtonCallbackData*);
     void frame();
     const Vrui::ToolFactory* getFactory() const;
 };

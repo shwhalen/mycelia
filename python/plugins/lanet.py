@@ -1,7 +1,7 @@
 import os
 
-lanetDir = '/opt/local/bin'
-povrayDir = lanetDir
+lanetDir = '/Users/sean/Code/mycelia/lanet-vi'
+povrayDir = '/opt/local/bin'
 width = 1024
 height = 1024
 

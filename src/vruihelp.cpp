@@ -117,7 +117,7 @@ float randomFloat()
 
 void show(GLMotif::Widget* w)
 {
-    Vrui::popupPrimaryWidget(w, Vrui::getNavigationTransformation().transform(Vrui::getDisplayCenter()));
+    Vrui::popupPrimaryWidget(w);
 }
 
 void show(GLMotif::Widget* w, const GLMotif::Widget* x)

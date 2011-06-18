@@ -53,6 +53,7 @@ public:
     }
     
     virtual void layout() = 0;
+    virtual void layoutStep() = 0;
 };
 
 #endif

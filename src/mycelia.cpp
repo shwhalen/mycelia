@@ -84,9 +84,9 @@ Mycelia::Mycelia(int argc, char** argv, char** appDefaults)
     generatorRadioBox->setSelectionMode(GLMotif::RadioBox::ATMOST_ONE);
     generatorRadioBox->getValueChangedCallbacks().add(this, &Mycelia::generatorCallback);
     
-    barabasiButton = new GLMotif::ToggleButton("BarabasiButton", generatorRadioBox, "Barabasi-Albert");
-    erdosButton = new GLMotif::ToggleButton("ErdosButton", generatorRadioBox, "Erdos-Renyi");
-    wattsButton = new GLMotif::ToggleButton("WattsButton", generatorRadioBox, "Watts-Strogatz");
+    erdosButton = new GLMotif::ToggleButton("ErdosButton", generatorRadioBox, "Random (Erdos-Renyi)");
+    barabasiButton = new GLMotif::ToggleButton("BarabasiButton", generatorRadioBox, "Scale Free (Barabasi-Albert)");
+    wattsButton = new GLMotif::ToggleButton("WattsButton", generatorRadioBox, "Small World (Watts-Strogatz)");
     
     // layout submenu
     GLMotif::Popup* layoutPopup = new GLMotif::Popup("LayoutPopup", Vrui::getWidgetManager());
@@ -138,14 +138,12 @@ Mycelia::Mycelia(int argc, char** argv, char** appDefaults)
     degreeButton = new GLMotif::ToggleButton("DegreeButton", pythonSubMenu, "Node Degree Distribution");
     centralityButton = new GLMotif::ToggleButton("CentralityButton", pythonSubMenu, "Node Betweenness Centrality");
     adjacencyButton = new GLMotif::ToggleButton("AdjacencyButton", pythonSubMenu, "Adjacency Matrix");
-    lanetButton = new GLMotif::ToggleButton("LaNetButton", pythonSubMenu, "LaNet Hierarchical Graph");
+    lanetButton = new GLMotif::ToggleButton("LaNetButton", pythonSubMenu, "k-Core Hierarchical Layout");
     
     // main menu
     mainMenuPopup = new GLMotif::PopupMenu("MainMenuPopup", Vrui::getWidgetManager());
     mainMenuPopup->setTitle("Mycelia Network Visualizer");
-    
     mainMenu = new GLMotif::Menu("MainMenu", mainMenuPopup, false);
-    Vrui::setMainMenu(mainMenuPopup);
     
     GLMotif::CascadeButton* fileCascade = new GLMotif::CascadeButton("FileCascade", mainMenu, "File");
     fileCascade->setPopup(filePopup);
@@ -181,6 +179,7 @@ Mycelia::Mycelia(int argc, char** argv, char** appDefaults)
     algorithmsSubMenu->manageChild();
     pythonSubMenu->manageChild();
     mainMenu->manageChild();
+    Vrui::setMainMenu(mainMenuPopup);
     
     // windows
     char cwd[1024];
@@ -272,7 +271,7 @@ void Mycelia::buildGraphList(MyceliaDataItem* dataItem) const
 
 void Mycelia::drawEdge(int source, int target, const MyceliaDataItem* dataItem) const
 {
-    drawEdge(gCopy->getPosition(source), gCopy->getPosition(target), true, gCopy->isBidirectional(source, target), dataItem);
+    drawEdge(gCopy->getNodePosition(source), gCopy->getNodePosition(target), true, gCopy->isBidirectional(source, target), dataItem);
 }
 
 void Mycelia::drawEdge(const Vrui::Point& source, const Vrui::Point& target, bool drawArrow, bool isBidirectional, const MyceliaDataItem* dataItem) const
@@ -367,7 +366,7 @@ void Mycelia::drawEdgeLabels(const MyceliaDataItem* dataItem) const
         
         if(label.size() > 0)
         {
-            const Vrui::Point& p = VruiHelp::midpoint(gCopy->getSourcePosition(edge), gCopy->getTargetPosition(edge));
+            const Vrui::Point& p = VruiHelp::midpoint(gCopy->getSourceNodePosition(edge), gCopy->getTargetNodePosition(edge));
             
             glPushMatrix();
             glTranslatef(p[0] + nodeRadius, p[1] + nodeRadius, p[2] + nodeRadius);
@@ -414,9 +413,16 @@ void Mycelia::drawLogo() const
 
 void Mycelia::drawNode(int node, const MyceliaDataItem* dataItem) const
 {
-    const Vrui::Point& p = gCopy->getPosition(node);
-    const float size = gCopy->getSize(node);
+    const Vrui::Point& p = gCopy->getNodePosition(node);
+    const float size = gCopy->getNodeSize(node);
     
+    if(node == selectedNode)
+        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getMaterial(MATERIAL_SELECTED));
+    else if(node == previousNode)
+        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getMaterial(MATERIAL_SELECTED_PREVIOUS));
+    else
+        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getNodeMaterial(node));
+        
     glPushMatrix();
     glTranslatef(p[0], p[1], p[2]);
     glScalef(size, size, size);
@@ -433,7 +439,6 @@ void Mycelia::drawNodes(const MyceliaDataItem* dataItem) const
             continue;
         }
         
-        glMaterial(GLMaterialEnums::FRONT_AND_BACK, *gCopy->getNodeMaterial(node));
         drawNode(node, dataItem);
     }
 }
@@ -453,7 +458,7 @@ void Mycelia::drawNodeLabels(const MyceliaDataItem* dataItem) const
             continue;
         }
         
-        const Vrui::Point& p = gCopy->getPosition(node);
+        const Vrui::Point& p = gCopy->getNodePosition(node);
         const string& label = gCopy->getNodeLabel(node);
         
         if(label.size() > 0)
@@ -564,7 +569,7 @@ bool Mycelia::isSelectedComponent(int node) const
 {
     if(componentButton->getToggle())
     {
-        return gCopy->getComponent(node) == gCopy->getComponent(selectedNode);
+        return gCopy->getNodeComponent(node) == gCopy->getNodeComponent(selectedNode);
     }
     
     return true;
@@ -797,7 +802,7 @@ void Mycelia::pythonCallback(GLMotif::RadioBox::ValueChangedCallbackData* cbData
         
         foreach(int node, gCopy->getNodes())
         {
-            out << gCopy->getDegree(node) << endl;
+            out << gCopy->getNodeDegree(node) << endl;
         }
         
         out.close();
@@ -890,17 +895,17 @@ void Mycelia::resetLayoutCallback(Misc::CallbackData* cbData)
     
     foreach(int node, g->getNodes())
     {
-        const Vrui::Point& p = g->getPosition(node);
+        const Vrui::Point& p = g->getNodePosition(node);
         float4 q;
         q.x = p[0];
         q.y = p[1];
         q.z = p[2];
-        q.w = g->getDegree(node);
+        q.w = g->getNodeDegree(node);
         positions_h[node] = q;
     }
     
     // adjacency matrix
-    int* adjacencies_h = new int[size*size];
+    int* adjacencies_h = new int[size * size];
     
     for(int row = 0; row < size; row++)
     {
@@ -917,12 +922,14 @@ void Mycelia::resetLayoutCallback(Misc::CallbackData* cbData)
     foreach(int node, g->getNodes())
     {
         const float4& q = positions_h[node];
-        g->setPosition(node, Vrui::Point(q.x, q.y, q.z));
+        g->setNodePosition(node, Vrui::Point(q.x, q.y, q.z));
     }
     
     // free memory
     delete[] positions_h;
     delete[] adjacencies_h;
+    
+    resetNavigationCallback(0);
 #endif
 }
 
@@ -1005,7 +1012,7 @@ void Mycelia::setSelectedNode(int node)
     
     if(nodeInfoButton->getToggle())
     {
-        nodeWindow->update(g->getAttributes(node));
+        nodeWindow->update(g->getNodeAttributes(node));
     }
     
     previousNode = selectedNode;
@@ -1025,7 +1032,7 @@ int Mycelia::selectNode(const Vrui::Point& clickPosition) const
     
     foreach(int node, g->getNodes())
     {
-        float dist2 = Geometry::sqrDist(clickPosition, g->getPosition(node));
+        float dist2 = Geometry::sqrDist(clickPosition, g->getNodePosition(node));
         
         if(dist2 < minDist2)
         {
@@ -1045,7 +1052,7 @@ int Mycelia::selectNode(const Vrui::Ray& ray) const
     
     foreach(int node, g->getNodes())
     {
-        Vrui::Vector sp = g->getPosition(node) - ray.getOrigin();
+        Vrui::Vector sp = g->getNodePosition(node) - ray.getOrigin();
         float x = sp * ray.getDirection();
         
         if(x >= 0 && x < lambdaMin)

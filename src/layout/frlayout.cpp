@@ -66,14 +66,14 @@ void FruchtermanReingoldLayout::layoutStep()
             }
             
             // calculate repulsive force as k^2 / distance (or variant)
-            Vrui::Vector v = application->g->getPosition(source) - application->g->getPosition(target);
+            Vrui::Vector v = application->g->getNodePosition(source) - application->g->getNodePosition(target);
             Vrui::Scalar mag = Geometry::mag(v);
             
             if(mag > 0) v = v.normalize();
             else mag = 0.001;
             
             Vrui::Scalar repulsiveForce = springForceConstant * springForceConstant * (1 / mag - mag * mag / REPULSION_RADIUS);
-            Vrui::Scalar weightedForce = repulsiveForce * application->g->getDegree(source);
+            Vrui::Scalar weightedForce = repulsiveForce * application->g->getNodeDegree(source);
             
             forceVector[source] += v * weightedForce;
             forceVector[target] -= v * weightedForce;
@@ -111,6 +111,6 @@ void FruchtermanReingoldLayout::layoutStep()
             forceVector[node] *= temperature / mag;
         }
         
-        application->g->updatePosition(node, forceVector[node]);
+        application->g->updateNodePosition(node, forceVector[node]);
     }
 }

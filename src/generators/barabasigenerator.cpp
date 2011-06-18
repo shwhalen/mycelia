@@ -56,7 +56,7 @@ void BarabasiGenerator::generateEdges(int initialNodeCount, int maxNodeCount) co
         {
             if(sourceNode == candidateNode) continue;
             
-            float p_i = (float)application->g->getDegree(candidateNode) / application->g->getEdgeCount();
+            float p_i = (float)application->g->getNodeDegree(candidateNode) / application->g->getEdgeCount();
             
             if(VruiHelp::randomFloat() < p_i)
             {

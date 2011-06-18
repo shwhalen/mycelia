@@ -34,8 +34,8 @@ void XmlParser::parse(string& filename)
     const basic_regex<char> keyvalueRegex("(\\w+)=\"?([^\"]+)\"?");
     
     string fileBuffer = VruiHelp::fileToString(filename);
-    boost::smatch lineMatches;
-    boost::smatch attributeMatches;
+    smatch lineMatches;
+    smatch attributeMatches;
     string::const_iterator lineStart;
     string::const_iterator lineEnd;
     idMap.clear();
@@ -121,14 +121,14 @@ void XmlParser::parse(string& filename)
             else if(key == colorKey)
             {
                 vector<int>& rgba = colorMap[value];
-                application->g->setColor(idMap[xmlId], rgba[0], rgba[1], rgba[2], rgba[3]);
+                application->g->setNodeColor(idMap[xmlId], rgba[0], rgba[1], rgba[2], rgba[3]);
             }
             else if(key == "label")
             {
                 application->g->setNodeLabel(idMap[xmlId], value);
             }
             
-            application->g->setAttribute(idMap[xmlId], key, value);
+            application->g->setNodeAttribute(idMap[xmlId], key, value);
             nodeStart = attributeMatches[0].second;
         }
         

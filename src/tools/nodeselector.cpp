@@ -31,7 +31,6 @@ NodeSelectorFactory* NodeSelector::factory = 0;
 NodeSelectorFactory::NodeSelectorFactory(Vrui::ToolManager& toolManager, Mycelia* application)
     : ToolFactory("NodeSelector", toolManager), application(application)
 {
-    layout.setNumDevices(1);    // custom tools require one input device
     layout.setNumButtons(0, 1); // 0th device requires 1 button
     
     NodeSelector::factory = this;
@@ -65,9 +64,9 @@ NodeSelector::NodeSelector(const Vrui::ToolFactory* factory, const Vrui::ToolInp
 {
 }
 
-void NodeSelector::buttonCallback(int deviceIndex, int buttonIndex, Vrui::InputDevice::ButtonCallbackData* cbData)
+void NodeSelector::buttonCallback(int buttonIndex, Vrui::InputDevice::ButtonCallbackData* cbData)
 {
-    Vrui::InputDevice* device = input.getDevice(0);
+    Vrui::InputDevice* device = getButtonDevice(0);
     
     if(cbData->newButtonState)
     {
@@ -80,7 +79,7 @@ void NodeSelector::buttonCallback(int deviceIndex, int buttonIndex, Vrui::InputD
             // transform 'stores' initial device translation (using inverse to later compute incremental change), as well as node starting point
             initial = Vrui::ONTransform(Vrui::getDeviceTransformation(device).getTranslation(), Vrui::getDeviceTransformation(device).getRotation());
             initial.doInvert();
-            initial *= Vrui::ONTransform(factory->application->g->getPosition(selectedNode) - Vrui::Point::origin, Geometry::Rotation<double, 3>());
+            initial *= Vrui::ONTransform(factory->application->g->getNodePosition(selectedNode) - Vrui::Point::origin, Geometry::Rotation<double, 3>());
             
             dragging = true;
         }
@@ -93,13 +92,13 @@ void NodeSelector::buttonCallback(int deviceIndex, int buttonIndex, Vrui::InputD
 
 void NodeSelector::frame()
 {
-    Vrui::InputDevice* device = input.getDevice(0);
+    Vrui::InputDevice* device = getButtonDevice(0);
     
     if(dragging)
     {
         Vrui::ONTransform current(Vrui::getDeviceTransformation(device).getTranslation(), Vrui::getDeviceTransformation(device).getRotation());
         current *= initial; // 'subtracts' starting transform to find increment, adds to node start position
-        factory->application->g->setPosition(factory->application->getSelectedNode(), current.getOrigin());
+        factory->application->g->setNodePosition(factory->application->getSelectedNode(), current.getOrigin());
     }
 }
 

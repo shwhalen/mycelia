@@ -19,8 +19,6 @@
 #ifndef __GRAPH_HPP
 #define __GRAPH_HPP
 
-#include <boost/shared_ptr.hpp>
-
 #include <mycelia.hpp>
 #include <vruihelp.hpp>
 
@@ -89,7 +87,7 @@ private:
     std::set<int> edges;
     int edgeId;
     
-    std::tr1::unordered_map<int, GLMaterial*> materialMap;
+    std::vector<GLMaterial*> materialVector;
     
     int version;
     Threads::Mutex mutex;
@@ -101,6 +99,7 @@ public:
     
     // general
     void clear();
+    void init();
     const std::pair<Vrui::Point, Vrui::Scalar> locate();
     const int getVersion() const;
     const GLMaterial* getMaterial(int);
@@ -134,27 +133,28 @@ public:
     const int addNode(const std::string&);
     const int deleteNode();
     const int deleteNode(int);
-    const Attributes& getAttributes(int);
-    const int getComponent(int);
-    const int getDegree(int);
+    const Attributes& getNodeAttributes(int);
+    const int getNodeComponent(int);
+    const int getNodeDegree(int);
     const std::string& getNodeLabel(int);
     const std::set<int>& getNodes() const;
     const int getNodeCount() const;
     const GLMaterial* getNodeMaterial(int);
-    const Vrui::Point& getPosition(int);
-    const Vrui::Vector& getVelocity(int);
-    const float getSize(int);
-    const Vrui::Point& getSourcePosition(int);
-    const Vrui::Point& getTargetPosition(int);
+    const Vrui::Point& getNodePosition(int);
+    const Vrui::Vector& getNodeVelocity(int);
+    const float getNodeSize(int);
+    const Vrui::Point& getSourceNodePosition(int);
+    const Vrui::Point& getTargetNodePosition(int);
     const bool isValidNode(int) const;
-    void setAttribute(int, std::string&, std::string&);
-    void setColor(int, int, int, int, int = 255.0);
-    void setColor(int, double, double, double, double = 1.0);
+    void setNodeAttribute(int, std::string&, std::string&);
+    void setNodeColor(int, int, int, int, int = 255.0);
+    void setNodeColor(int, double, double, double, double = 1.0);
     void setNodeLabel(int, const std::string&);
-    void setPosition(int, const Vrui::Point&);
-    void setSize(int, float);
-    void updatePosition(int, const Vrui::Vector&);
-    void updateVelocity(int, const Vrui::Vector&);
+    void setNodePosition(int, const Vrui::Point&);
+    void setNodeVelocity(int, const Vrui::Vector&);
+    void setNodeSize(int, float);
+    void updateNodePosition(int, const Vrui::Vector&);
+    void updateNodeVelocity(int, const Vrui::Vector&);
     
     // boost wrappers
     boost::BoostGraph toBoost();

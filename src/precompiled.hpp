@@ -1,26 +1,7 @@
 #ifndef __PRECOMPILED_HPP
 #define __PRECOMPILED_HPP
 
-// stl
-#include <cmath>
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <limits>
-#include <list>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <tr1/unordered_map>
-
-// syscalls
-#include <sys/wait.h>
-
-// glu
-#include <GL/glu.h>
-
 // vrui
-#include <Geometry/Ray.h>
 #include <GL/GLContextData.h>
 #include <GL/GLGeometryWrappers.h>
 #include <GL/GLMaterial.h>
@@ -46,7 +27,7 @@
 #include <Threads/Mutex.h>
 #include <Threads/Thread.h>
 #include <Vrui/Application.h>
-#include <Vrui/Tools/Tool.h>
+#include <Vrui/Tool.h>
 #include <Vrui/VRScreen.h>
 #include <Vrui/Vrui.h>
 
@@ -61,5 +42,23 @@
 
 // font rendering
 #include <FTGL/ftgl.h>
+
+// syscalls
+#include <sys/wait.h>
+
+// glu
+#include <GL/glu.h>
+
+// stl -- must come after vrui includes
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <limits>
+#include <list>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <tr1/unordered_map>
 
 #endif

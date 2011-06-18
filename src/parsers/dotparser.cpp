@@ -28,17 +28,22 @@ DotParser::DotParser(Mycelia* application)
 
 void DotParser::parse(string& filename)
 {
-    const basic_regex<char> edgeRegex("^\\s*([\\w\\d]+)\\s*-[-|>]\\s*([\\w\\d]+)[^-{};]*;");
-    const basic_regex<char> nodeRegex("^\\s*([\\w\\d]+)[^-{};]*;");
-    const basic_regex<char> positionRegex("pos=\"([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+)\"");
+    string nodeString = "\\s*\"?([\\w\\d]+)\"?\\s*";
+    string toString = "-[-|>]";
+    string filterString = "[^-{};]*";
+    string eolString = ";";
+    string floatString = "([\\d\\.\\-]+)";
+    const basic_regex<char> edgeRegex("^" + nodeString + toString + nodeString + filterString + eolString);
+    const basic_regex<char> nodeRegex("^" + nodeString + filterString + eolString);
+    const basic_regex<char> positionRegex("pos=\"" + floatString + "," + floatString + "," + floatString + "\"");
     const basic_regex<char> labelRegex("label=\"([^\"]+)\"");
     
     string fileBuffer = VruiHelp::fileToString(filename);
     string::const_iterator lineStart;
     string::const_iterator lineEnd;
-    boost::smatch lineMatches;
-    boost::smatch positionMatches;
-    boost::smatch labelMatches;
+    smatch lineMatches;
+    smatch positionMatches;
+    smatch labelMatches;
     nodeMap.clear();
     
     // nodes
@@ -63,7 +68,7 @@ void DotParser::parse(string& filename)
             float y = VruiHelp::stringToFloat(sy);
             float z = VruiHelp::stringToFloat(sz);
             
-            application->g->setPosition(nodeMap[nodeId], Vrui::Point(x, y, z));
+            application->g->setNodePosition(nodeMap[nodeId], Vrui::Point(x, y, z));
             application->setSkipLayout(true);
         }
         

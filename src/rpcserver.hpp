@@ -260,7 +260,7 @@ public:
         double a = params.getDouble(4);
         params.verifyEnd(5);
         
-        app->g->setColor(node, r, g, b, a);
+        app->g->setNodeColor(node, r, g, b, a);
         
         *retval = xmlrpc_c::value_int(0);
     }
@@ -298,7 +298,7 @@ public:
         double size = params.getDouble(1);
         params.verifyEnd(2);
         
-        app->g->setSize(node, size);
+        app->g->setNodeSize(node, size);
         
         *retval = xmlrpc_c::value_int(0);
     }
