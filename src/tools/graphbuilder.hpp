@@ -40,7 +40,7 @@ public:
     const char* getName() const;
 };
 
-class GraphBuilder : public Vrui::Tool
+class GraphBuilder : public Vrui::Tool, public GLObject
 {
     friend class GraphBuilderFactory;
     
@@ -61,6 +61,7 @@ public:
     void frame();
     const Vrui::ToolFactory* getFactory() const;
     Vrui::Point getPosition(Vrui::InputDevice* device) const;
+    void initContext(GLContextData&) const;
 };
 
 #endif

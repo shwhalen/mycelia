@@ -1090,6 +1090,16 @@ int Mycelia::selectNode(Vrui::InputDevice* device) const
     return result;
 }
 
+Vrui::Scalar Mycelia::getArrowWidth() const
+{
+    return arrowWidth;
+}
+
+Vrui::Scalar Mycelia::getArrowHeight() const
+{
+    return arrowHeight;
+}
+
 int main(int argc, char** argv)
 {
     char** appDefaults = 0;
