@@ -194,6 +194,10 @@ public:
     int selectNode(const Vrui::Ray&) const;
     int selectNode(Vrui::InputDevice*) const;
     
+    // arrowhead
+    Vrui::Scalar getArrowWidth() const;
+    Vrui::Scalar getArrowHeight() const;
+    
     // other
     Graph* g; // wrap this eventually
     Graph* gCopy;
