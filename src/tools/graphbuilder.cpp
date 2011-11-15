@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <dataItem.hpp>
 #include <tools/graphbuilder.hpp>
 
 using namespace std;
@@ -115,13 +116,12 @@ void GraphBuilder::display(GLContextData& contextData) const
 {
     if(dragging)
     {
+        bool drawArrow = true;
+        bool bidirectional = false;
+        MyceliaDataItem* dataItem = contextData.retrieveDataItem<MyceliaDataItem>(this);
         glPushMatrix();
         glMultMatrix(Vrui::getNavigationTransformation());
-        
-        glBegin(GL_LINES);
-        glVertex3f(fromPosition[0], fromPosition[1], fromPosition[2]);
-        glVertex3f(currentPosition[0], currentPosition[1], currentPosition[2]);
-        glEnd();
+        factory->application->drawEdge(fromPosition, currentPosition, drawArrow, bidirectional, dataItem);
         glPopMatrix();
     }
 }
@@ -163,3 +163,21 @@ Vrui::Point GraphBuilder::getPosition(Vrui::InputDevice* device) const
     
     return pos;
 }
+
+void GraphBuilder::initContext(GLContextData& contextData) const
+{
+        MyceliaDataItem* dataItem = new MyceliaDataItem();
+
+        Vrui::Scalar arrowWidth = factory->application->getArrowWidth();
+        Vrui::Scalar arrowHeight = factory->application->getArrowHeight();
+
+        glNewList(dataItem->arrowList, GL_COMPILE);
+        gluCylinder(dataItem->quadric, arrowWidth, 0.0, arrowHeight, 10, 1);
+        gluQuadricOrientation(dataItem->quadric, GLU_INSIDE);
+        gluDisk(dataItem->quadric, 0.0, arrowWidth, 10, 1);
+        gluQuadricOrientation(dataItem->quadric, GLU_OUTSIDE);
+        glEndList();
+
+        contextData.addDataItem(this, dataItem);
+}
+
