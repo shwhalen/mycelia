@@ -24,6 +24,7 @@
 #include <GLMotif/WidgetManager.h>
 #include <Images/ReadImageFile.h>
 #include <Images/RGBImage.h>
+#include <IO/OpenFile.h>
 #include <Threads/Mutex.h>
 #include <Threads/Thread.h>
 #include <Vrui/Application.h>

@@ -182,11 +182,8 @@ Mycelia::Mycelia(int argc, char** argv, char** appDefaults)
     Vrui::setMainMenu(mainMenuPopup);
     
     // windows
-    char cwd[1024];
-    string dataDirectory = string(getcwd(cwd, 1024)) + "/data";
-    
     fileWindow = new GLMotif::FileSelectionDialog(mainMenu->getManager(), "Open file...",
-            dataDirectory.c_str(), ".xml;.dot;.chaco;.gml");
+            IO::openDirectory("./data"), ".xml;.dot;.chaco;.gml");
     fileWindow->getOKCallbacks().add(this, &Mycelia::fileOpenAction);
     fileWindow->getCancelCallbacks().add(this, &Mycelia::fileCancelAction);
     
@@ -707,7 +704,7 @@ void Mycelia::fileOpenAction(GLMotif::FileSelectionDialog::OKCallbackData* cbDat
     skipLayout = false;
     
     // call appropriate parser
-    string& filename = cbData->selectedFileName;
+    string filename = cbData->getSelectedPath();
     
     if(VruiHelp::endsWith(filename, ".dot"))
     {
